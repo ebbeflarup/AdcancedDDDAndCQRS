@@ -8,10 +8,7 @@ namespace Restaurant
     {
         private readonly JArray _jsonList;
 
-        public LineItemList()
-        {
-            _jsonList = new JArray();
-        }
+        public LineItemList() : this(new JArray()) {}
 
         public LineItemList(JArray jsonList)
         {
