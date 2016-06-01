@@ -49,6 +49,7 @@
     <Compile Include="Cook.cs" />
     <Compile Include="IHandleOrder.cs" />
     <Compile Include="LineItem.cs" />
+    <Compile Include="LineItemEnumerator.cs" />
     <Compile Include="LineItemList.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="Program.cs" />
