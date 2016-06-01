@@ -1,8 +1,9 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 
 namespace Restaurant
 {
-    public class LineItemEnumerator : IEnumerator
+    public class LineItemEnumerator : IEnumerator<LineItem>
     {
         private readonly LineItemList _lineItemList;
         private int _index;
@@ -23,6 +24,11 @@ namespace Restaurant
             _index = 0;
         }
 
-        public object Current => _lineItemList[_index];
+        object IEnumerator.Current => Current;
+
+        public LineItem Current => _lineItemList[_index];
+        public void Dispose()
+        {
+        }
     }
 }
