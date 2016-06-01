@@ -10,6 +10,10 @@
         }
 
         public void Handle(Order order)
-        { }
+        {
+            var enrichedOrder = new Order(order.Serialize()) {Paid = true};
+
+            _handleOrder.Handle(enrichedOrder);
+        }
     }
 }
