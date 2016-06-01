@@ -22,13 +22,12 @@ namespace Restaurant
         public Order(string json)
         {
             _order = JObject.Parse(json);
-            LineItems = new LineItemList(_order.GetValue("lineItems") as JArray);
         }
 
         public Guid Id
         {
             get { return (Guid)_order.GetValue("id"); }
-            set { SetProperty("id", value); }
+            private set { SetProperty("id", value); }
         }
 
 
@@ -38,7 +37,14 @@ namespace Restaurant
             set { SetProperty("tableNumber", value); }
         }
 
-        public LineItemList LineItems { get; }
+        public LineItemList LineItems
+        {
+            get { return new LineItemList(_order.GetValue("lineItems") as JArray); ; }
+            set
+            {
+                SetProperty("lineItems", value);
+            }
+        }
 
         public double Tax
         {
