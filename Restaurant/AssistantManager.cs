@@ -1,4 +1,6 @@
-﻿namespace Restaurant
+﻿using System.Linq;
+
+namespace Restaurant
 {
     public class AssistantManager : IHandleOrder
     {
@@ -11,9 +13,11 @@
 
         public void Handle(Order order)
         {
-            var enrichedOrder = new Order(order.Serialize());
-
-            
+            var enrichedOrder = new Order(order.Serialize())
+            {
+                Total = order.LineItems.Sum(lineItem => lineItem.Price),
+                Tax = 6.99
+            };
 
             _handleOrder.Handle(enrichedOrder);
         }

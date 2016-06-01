@@ -1,10 +1,11 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Newtonsoft.Json.Linq;
 
 namespace Restaurant
 {
-    public class LineItemList : IEnumerable
+    public class LineItemList : IEnumerable<LineItem>
     {
         private readonly JArray _jsonList;
 
@@ -25,11 +26,15 @@ namespace Restaurant
             _jsonList.Add(JToken.FromObject(lineItem));
         }
 
-        public IEnumerator GetEnumerator()
+        public IEnumerator<LineItem> GetEnumerator()
         {
             return new LineItemEnumerator(this);
         }
 
         public int Count => _jsonList.Count;
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
+        }
     }
 }
