@@ -11,7 +11,7 @@ namespace AdvancedCourse
         private readonly IMessagePublisher _messagePublisher;
         public int StopLossLimit { get; private set; }
         private readonly List<int> _tenSecondWindow  = new List<int>(); 
-        private readonly List<int> _thirteenSecondWindow = new List<int>(); 
+        private readonly List<int> _thirteenSecondWindow = new List<int>();
 
         public StopLossProcessManager(IMessagePublisher messagePublisher)
         {
@@ -35,14 +35,14 @@ namespace AdvancedCourse
 
         public void Handle(RemoveFromTenSecondWindow removeFromTenSecondWindow)
         {
-            var minPriceTenSecondWindow = _tenSecondWindow.Min();
-            if (minPriceTenSecondWindow > StopLossLimit)
+            var minStopLossCandidateInTenSecondWindow = _tenSecondWindow.Min();
+            if (minStopLossCandidateInTenSecondWindow > StopLossLimit)
             {
-                StopLossLimit = minPriceTenSecondWindow;
+                StopLossLimit = minStopLossCandidateInTenSecondWindow;
                 _messagePublisher.Publish(new StopLossPriceUpdated(StopLossLimit));
             }
             
-            _tenSecondWindow.Remove(removeFromTenSecondWindow.Price);
+            _tenSecondWindow.Remove(removeFromTenSecondWindow.StopLossCandidate);
         }
 
         public void Handle(RemoveFromThirteenSecondWindow removeFromTenSecondWindow)

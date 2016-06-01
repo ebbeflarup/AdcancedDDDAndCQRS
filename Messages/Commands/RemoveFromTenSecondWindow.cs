@@ -2,10 +2,10 @@
 {
     public class RemoveFromTenSecondWindow
     {
-        public int Price { get; private set; }
-        public RemoveFromTenSecondWindow(int price)
+        public int StopLossCandidate { get; private set; }
+        public RemoveFromTenSecondWindow(int stopLossCandidate)
         {
-            Price = price;
+            StopLossCandidate = stopLossCandidate;
         }
     }
 }
