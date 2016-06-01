@@ -46,6 +46,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AssistantManager.cs" />
+    <Compile Include="Cashier.cs" />
     <Compile Include="Cook.cs" />
     <Compile Include="IHandleOrder.cs" />
     <Compile Include="LineItem.cs" />

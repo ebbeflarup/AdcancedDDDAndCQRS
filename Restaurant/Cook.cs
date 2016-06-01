@@ -13,10 +13,10 @@ namespace Restaurant
 
         public void Handle(Order order)
         {
-            order.Ingredients = "ponies, elephants";
+            var enrichedOrder = new Order(order.Serialize()) {Ingredients = "ponies, elephants"};
             Thread.Sleep(2000);
 
-            _orderHandler.Handle(order);
+            _orderHandler.Handle(enrichedOrder);
         }
     }
 }

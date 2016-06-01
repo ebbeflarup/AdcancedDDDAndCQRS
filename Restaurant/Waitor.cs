@@ -11,11 +11,11 @@ namespace Restaurant
             _handleOrder = handleOrder;
         }
 
-        public Guid PlaceOrder()
+        public Guid PlaceOrder(int tableNumber, LineItemList lineItemList)
         {
             var newOrderGuid = Guid.NewGuid();
 
-            //_handleOrder.Handle(new Order());
+            _handleOrder.Handle(new Order(newOrderGuid, tableNumber, lineItemList));
 
             return newOrderGuid;
         }
