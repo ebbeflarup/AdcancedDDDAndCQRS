@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Restaurant;
 using Xunit;
@@ -38,6 +39,18 @@ namespace UnitTests
             Assert.Equal(3, order.LineItems[0].Quantity);
 
             order.LineItems.Add(new LineItem(5, "bloody mary", 1.95));
+        }
+
+        [Fact]
+        public void CreateNewOrder()
+        {
+            var list = new LineItemList();
+
+            list.Add(new LineItem(3, "pony marmelade", 9.45));
+
+            var order = new Order(Guid.NewGuid(), 12, list);
+
+            Assert.Equal(12, order.TableNumber);
         }
     }
 }
