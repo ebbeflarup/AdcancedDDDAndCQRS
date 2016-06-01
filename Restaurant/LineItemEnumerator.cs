@@ -6,7 +6,7 @@ namespace Restaurant
     public class LineItemEnumerator : IEnumerator<LineItem>
     {
         private readonly LineItemList _lineItemList;
-        private int _index;
+        private int _index = -1;
 
         public LineItemEnumerator(LineItemList lineItemList)
         {

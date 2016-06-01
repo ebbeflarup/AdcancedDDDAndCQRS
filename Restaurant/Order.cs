@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Configuration;
-using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace Restaurant
@@ -39,11 +36,8 @@ namespace Restaurant
 
         public LineItemList LineItems
         {
-            get { return new LineItemList(_order.GetValue("lineItems") as JArray); ; }
-            set
-            {
-                SetProperty("lineItems", value);
-            }
+            get { return new LineItemList(_order.GetValue("lineItems") as JArray); }
+            private set { SetProperty("lineItems", value); }
         }
 
         public double Tax

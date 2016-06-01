@@ -27,16 +27,16 @@ namespace UnitTests
             var order = new Order(json);
 
             Assert.Equal(23, order.TableNumber);
-            Assert.Equal(2, order.LineItems[0].Quantity);
-            Assert.Equal("razor blade ice cream", order.LineItems[0].Item);
-            Assert.Equal(2.99, order.LineItems[0].Price);
+            Assert.Equal(2, order.LineItems[0].quantity);
+            Assert.Equal("razor blade ice cream", order.LineItems[0].item);
+            Assert.Equal(2.99, order.LineItems[0].price);
             Assert.Equal(3.00, order.Tax);
             Assert.Equal(3.00, order.Total);
             Assert.Equal(false, order.Paid);
             Assert.Equal("razor blades, ice cream", order.Ingredients);
 
-            order.LineItems[0].Quantity = 3;
-            Assert.Equal(3, order.LineItems[0].Quantity);
+            order.LineItems[0].quantity = 3;
+            Assert.Equal(3, order.LineItems[0].quantity);
 
             order.LineItems.Add(new LineItem(5, "bloody mary", 1.95));
         }

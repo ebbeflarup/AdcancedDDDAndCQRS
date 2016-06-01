@@ -15,7 +15,7 @@ namespace Restaurant
         {
             var enrichedOrder = new Order(order.Serialize())
             {
-                Total = order.LineItems.Sum(lineItem => lineItem.Price),
+                Total = order.LineItems.Sum(lineItem => lineItem.price),
                 Tax = 6.99
             };
 

@@ -14,6 +14,8 @@ namespace Restaurant
                 new LineItem(2, "Burger", 4.99)
             };
             waitor.PlaceOrder(2, lineItems);
+
+            System.Console.ReadLine();
         }
     }
 }
