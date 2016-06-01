@@ -4,7 +4,7 @@
     {
         static void Main(string[] args)
         {
-            //var waitor = new Waitor(new Cook());
+            var waitor = new Waitor(new Cook(new AssistantManager(new Cashier(new OrderPrinter()))));
         }
     }
 }
