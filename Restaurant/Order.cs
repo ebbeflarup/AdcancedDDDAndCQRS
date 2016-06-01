@@ -10,7 +10,7 @@ namespace Restaurant
         public Order(string json)
         {
             _order = JObject.Parse(json);
-            LineItems = new LineItemList(_order.GetValue("lineItems") as IList);
+            LineItems = new LineItemList(_order.GetValue("lineItems") as JArray);
         }
 
         public int TableNumber

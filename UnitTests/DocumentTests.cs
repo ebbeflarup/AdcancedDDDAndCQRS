@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Newtonsoft.Json;
+using Restaurant;
 using Xunit;
 
 namespace UnitTests

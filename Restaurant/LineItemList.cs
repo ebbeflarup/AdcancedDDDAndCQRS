@@ -5,9 +5,9 @@ namespace Restaurant
 {
     public class LineItemList
     {
-        private readonly IList _jsonList;
+        private readonly JArray _jsonList;
 
-        public LineItemList(IList jsonList)
+        public LineItemList(JArray jsonList)
         {
             _jsonList = jsonList;
         }
@@ -16,7 +16,7 @@ namespace Restaurant
 
         public void Add(LineItem lineItem)
         {
-            _jsonList.Add(lineItem);
+            _jsonList.Add(JToken.FromObject(lineItem));
         }
     }
 }
