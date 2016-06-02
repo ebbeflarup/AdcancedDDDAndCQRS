@@ -16,7 +16,15 @@ namespace Restaurant
                     new Cook(assistantManager),
                     new Cook(assistantManager)
                 });
-            var waitor = new Waitor(cookMultiplexer);
+
+            var cookRoundRobinDispatcher =
+                new RoundRobinDispatcher(new List<Cook>()
+                {
+                    new Cook(assistantManager),
+                    new Cook(assistantManager),
+                    new Cook(assistantManager)
+                });
+            var waitor = new Waitor(cookRoundRobinDispatcher);
 
             for (int i = 0; i < 20; i++)
             {
