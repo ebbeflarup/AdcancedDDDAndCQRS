@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
@@ -25,10 +26,10 @@ namespace Restaurant
             var waitor = new Waitor(bus);
 
             // Wiring
-            bus.Subscribe("orderCreated", mfth);
-            bus.Subscribe("orderCooked", thAssMan);
-            bus.Subscribe("orderPriced", thCashier);
-            bus.Subscribe("orderPaid", new OrderPrinter());
+            bus.Subscribe<OrderPlaced>( mfth);
+            bus.Subscribe<OrderCooked>(thAssMan);
+            bus.Subscribe<OrderPriced>(thCashier);
+            bus.Subscribe<OrderPaid>(new OrderPrinter());
 
             foreach (var startable in startables)
             {

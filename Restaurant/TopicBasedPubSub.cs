@@ -1,26 +1,31 @@
-﻿using System.Collections.Generic;
+﻿using System.CodeDom;
+using System.Collections.Generic;
 
 namespace Restaurant
 {
     public class TopicBasedPubSub : IPublisher
     {
-        private readonly IDictionary<string, IHandle<Order>> _topics;
+        private readonly IDictionary<string, IHandle> _topics;
 
         public TopicBasedPubSub()
         {
-            _topics = new Dictionary<string, IHandle<Order>>();
+            _topics = new Dictionary<string, IHandle>();
         }
 
-        public void Publish(string topic, Order order)
+        public void Subscribe<TMessage>(IHandle<TMessage> handler)
         {
-            IHandle<Order> orderHandler;
-            if (_topics.TryGetValue(topic, out orderHandler))
-                orderHandler.Handle(order);
+            _topics.Add(typeof(TMessage).Name, handler);
         }
 
-        public void Subscribe(string topic, IHandle<Order> orderHandler)
+        public void Publish<TMessage>(TMessage message)
         {
-            _topics.Add(topic, orderHandler);
+            IHandle handler;
+            
+            if (_topics.TryGetValue(typeof(TMessage).Name, out handler))
+            {
+                var typedHandler = (IHandle<TMessage>)handler;
+                typedHandler.Handle(message);
+            }
         }
     }
 }

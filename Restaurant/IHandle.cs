@@ -1,6 +1,9 @@
 ﻿namespace Restaurant
 {
-    public interface IHandle<in T>
+    public interface IHandle
+    { }
+
+    public interface IHandle<in T> :IHandle
     {
         void Handle(T t);
     }
