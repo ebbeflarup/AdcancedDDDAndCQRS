@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Restaurant.Messages;
 
 namespace Restaurant
@@ -12,17 +13,30 @@ namespace Restaurant
             _topics = new Dictionary<string, IList<IHandle>>();
         }
 
+        public void Publish<TMessage>(TMessage message)
+            where TMessage : IMessage
+        {
+            IList<IHandle> handlers;
+
+            if (!_topics.TryGetValue(typeof (TMessage).Name, out handlers)) return;
+
+            foreach (var typedHandler in handlers.Select(handler => handler as IHandle<TMessage>))
+            {
+                typedHandler?.Handle(message);
+            }
+        }
+
         public void Subscribe<TMessage>(IHandle<TMessage> handler)
             where TMessage : IMessage
         {
-            Subscribe(typeof(TMessage).Name, handler);
+            Subscribe(typeof (TMessage).Name, handler);
         }
 
         public void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
         {
             var oldList = _topics[topic] ?? new List<IHandle>();
 
-            _topics[topic] = new List<IHandle>(oldList) { handler };
+            _topics[topic] = new List<IHandle>(oldList) {handler};
         }
 
         public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
@@ -34,18 +48,6 @@ namespace Restaurant
             list.Remove(handler);
 
             _topics[topic] = list;
-        }
-
-        public void Publish<TMessage>(TMessage message)
-             where TMessage : IMessage
-        {
-            IHandle handler;
-            
-            if (_topics.TryGetValue(typeof(TMessage).Name, out handler))
-        {
-                var typedHandler = handler as IHandle<TMessage>;
-                typedHandler?.Handle(message);
-            }
         }
     }
 }
