@@ -5,13 +5,20 @@ namespace Restaurant
 {
     public class ThreadedHandler : IHandleOrder, IStartable
     {
+        public string Name { get; }
         private readonly IHandleOrder _handleOrder;
         private readonly ConcurrentQueue<Order> _orders; 
 
-        public ThreadedHandler(IHandleOrder handleOrder)
+        public ThreadedHandler(IHandleOrder handleOrder, string name)
         {
+            Name = name;
             _handleOrder = handleOrder;
             _orders = new ConcurrentQueue<Order>();
+        }
+
+        public int Count()
+        {
+            return _orders.Count;
         }
 
         public void Start()
