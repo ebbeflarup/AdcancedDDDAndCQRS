@@ -8,13 +8,15 @@ namespace Restaurant
         {
             var waitor = new Waitor(new Cook(new AssistantManager(new Cashier(new OrderPrinter()))));
 
-            var lineItems = new LineItemList
+            for (int i = 0; i < 20; i++)
             {
-                new LineItem(2, "Ice Cream", 2.99),
-                new LineItem(2, "Burger", 4.99)
-            };
-            waitor.PlaceOrder(2, lineItems);
-
+                var lineItems = new LineItemList
+                {
+                    new LineItem(2, "Ice Cream", 2.99),
+                    new LineItem(2, "Burger", 4.99)
+                };
+                waitor.PlaceOrder(2, lineItems);
+            }
             System.Console.ReadLine();
         }
     }
