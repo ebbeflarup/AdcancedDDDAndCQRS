@@ -2,20 +2,21 @@
 
 namespace Restaurant
 {
-    public class RoundRobinDispatcher : IHandle<Order>
+    public class RoundRobinDispatcher<THandler, TMessage> : IHandle<THandler>
+        where THandler : IHandle<TMessage>
     {
-        private readonly Queue<IHandle<Order>> _handleOrders;
+        private readonly Queue<IHandle<THandler>> _handleOrders;
 
-        public RoundRobinDispatcher(IEnumerable<IHandle<Order>> handleOrders)
+        public RoundRobinDispatcher(IEnumerable<IHandle<THandler>> handleOrders)
         {
-            _handleOrders = new Queue<IHandle<Order>>(handleOrders);
+            _handleOrders = new Queue<IHandle<THandler>>(handleOrders);
         }
 
-        public void Handle(Order order)
+        public void Handle(THandler t)
         {
             try
             {
-                _handleOrders.Peek().Handle(order);
+                _handleOrders.Peek().Handle(t);
             }
             finally
             {

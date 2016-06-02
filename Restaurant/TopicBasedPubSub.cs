@@ -22,7 +22,7 @@ namespace Restaurant
             IHandle handler;
             
             if (_topics.TryGetValue(typeof(TMessage).Name, out handler))
-            {
+        {
                 var typedHandler = (IHandle<TMessage>)handler;
                 typedHandler.Handle(message);
             }
