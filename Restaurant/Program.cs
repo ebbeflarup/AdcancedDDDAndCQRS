@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System;
+using System.Collections.Generic;
+using Newtonsoft.Json.Linq;
 
 namespace Restaurant
 {
@@ -6,7 +8,15 @@ namespace Restaurant
     {
         static void Main(string[] args)
         {
-            var waitor = new Waitor(new Cook(new AssistantManager(new Cashier(new OrderPrinter()))));
+            var assistantManager = new AssistantManager(new Cashier(new OrderPrinter()));
+            var cookMultiplexer =
+                new Multiplexer(new List<Cook>()
+                {
+                    new Cook(assistantManager),
+                    new Cook(assistantManager),
+                    new Cook(assistantManager)
+                });
+            var waitor = new Waitor(cookMultiplexer);
 
             for (int i = 0; i < 20; i++)
             {
@@ -17,7 +27,8 @@ namespace Restaurant
                 };
                 waitor.PlaceOrder(2, lineItems);
             }
-            System.Console.ReadLine();
+            Console.WriteLine("Done");
+            Console.ReadLine();
         }
     }
 }
