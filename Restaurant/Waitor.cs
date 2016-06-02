@@ -16,7 +16,7 @@ namespace Restaurant
         {
             var newOrderGuid = Guid.NewGuid();
 
-            _publisher.Publish("OrderCreated", new Order(newOrderGuid, tableNumber, lineItemList));
+            _publisher.Publish("orderCreated", new Order(newOrderGuid, tableNumber, lineItemList));
 
             return newOrderGuid;
         }
