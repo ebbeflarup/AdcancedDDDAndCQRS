@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Messages
+namespace Restaurant.Messages
 {
-    public class MessageBase
+    public class MessageBase : IMessage
     {
         public MessageBase()
         {
