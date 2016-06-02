@@ -12,9 +12,7 @@ namespace Restaurant
             {"quantity", new JValue(quantity)},
             {"item", new JValue(item)},
             {"price", new JValue(price)}
-        })
-        {
-        }
+        }) { }
 
         public LineItem(JObject jsonItem)
         {
