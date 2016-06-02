@@ -1,4 +1,5 @@
 ﻿using System;
+using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
@@ -16,7 +17,7 @@ namespace Restaurant
         {
             var newOrderGuid = Guid.NewGuid();
 
-            _publisher.Publish("orderCreated", new Order(newOrderGuid, tableNumber, lineItemList));
+            _publisher.Publish(new OrderPlaced(new Order(newOrderGuid, tableNumber, lineItemList)));
 
             return newOrderGuid;
         }

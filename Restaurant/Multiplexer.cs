@@ -2,19 +2,20 @@
 
 namespace Restaurant
 {
-    public class Multiplexer : IHandle<Order>
+    public class Multiplexer<THandler, TMessage> : IHandle<THandler>
+        where THandler : IHandle<TMessage>
     {
-        private readonly IEnumerable<IHandle<Order>> _handleOrders;
-        public Multiplexer(IEnumerable<IHandle<Order>> handleOrders)
+        private readonly IEnumerable<IHandle<THandler>> _handleOrders;
+        public Multiplexer(IEnumerable<IHandle<THandler>> handleOrders)
         {
             _handleOrders = handleOrders;
         }
 
-        public void Handle(Order order)
+        public void Handle(THandler t)
         {
             foreach (var handleOrder in _handleOrders)
             {
-                handleOrder.Handle(order);
+                handleOrder.Handle(t);
             }
         }
     }

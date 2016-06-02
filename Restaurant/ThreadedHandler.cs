@@ -3,17 +3,17 @@ using System.Threading;
 
 namespace Restaurant
 {
-    public class ThreadedHandler : IHandle<Order>, IStartable, IMonitorable
+    public class ThreadedHandler<T> : IHandle<T>, IStartable, IMonitorable
     {
         public string Name { get; }
-        private readonly IHandle<Order> _handleOrder;
-        private readonly ConcurrentQueue<Order> _orders; 
+        private readonly IHandle<T> _handleOrder;
+        private readonly ConcurrentQueue<T> _orders; 
 
-        public ThreadedHandler(IHandle<Order> handleOrder, string name)
+        public ThreadedHandler(IHandle<T> handleOrder, string name)
         {
             Name = name;
             _handleOrder = handleOrder;
-            _orders = new ConcurrentQueue<Order>();
+            _orders = new ConcurrentQueue<T>();
         }
 
         public int Count()
@@ -27,7 +27,7 @@ namespace Restaurant
             {
                 while (true)
                 {
-                    Order order;
+                    T order;
                     while (_orders.TryDequeue(out order))
                     {
                         _handleOrder.Handle(order);
@@ -38,7 +38,7 @@ namespace Restaurant
             thread.Start();
         }
 
-        public void Handle(Order order)
+        public void Handle(T order)
         {
             _orders.Enqueue(order);
         }
