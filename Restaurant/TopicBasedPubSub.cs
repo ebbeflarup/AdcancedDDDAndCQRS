@@ -7,6 +7,7 @@ namespace Restaurant
     public class TopicBasedPubSub : IPublisher
     {
         private readonly IDictionary<string, IList<IHandle>> _topics;
+        private readonly object _topicsLock = new object();
 
         public TopicBasedPubSub()
         {
@@ -34,20 +35,28 @@ namespace Restaurant
 
         public void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
         {
-            var oldList = _topics[topic] ?? new List<IHandle>();
+            lock (_topicsLock)
+            {
+                IList<IHandle> list = _topics.TryGetValue(topic, out list) ? new List<IHandle>(list) : new List<IHandle>();
 
-            _topics[topic] = new List<IHandle>(oldList) {handler};
+                list.Add(handler);
+
+                _topics[topic] = list;
+            }
         }
 
         public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
         {
-            var topic = typeof (TMessage).Name;
-            var oldList = _topics[topic] ?? new List<IHandle>();
-            var list = new List<IHandle>(oldList);
+            lock (_topicsLock)
+            {
+                var topic = typeof(TMessage).Name;
+                var oldList = _topics[topic] ?? new List<IHandle>();
+                var list = new List<IHandle>(oldList);
 
-            list.Remove(handler);
+                list.Remove(handler);
 
-            _topics[topic] = list;
+                _topics[topic] = list;
+            }
         }
     }
 }

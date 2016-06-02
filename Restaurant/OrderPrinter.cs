@@ -3,11 +3,21 @@ using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
-    public class OrderPrinter : IHandle<OrderPaid>
+    public class OrderPrinter : IHandle<OrderPaid>, IHandle<OrderCooked>
     {
         public void Handle(OrderPaid orderPaid)
         {
-            Console.WriteLine(orderPaid.Order.Serialize());
+            PrintOrder(orderPaid.Order);
+        }
+
+        public void Handle(OrderCooked orderCooked)
+        {
+            PrintOrder(orderCooked.Order);
+        }
+
+        private void PrintOrder(Order order)
+        {
+            Console.WriteLine(order.Serialize());
         }
     }
 }
