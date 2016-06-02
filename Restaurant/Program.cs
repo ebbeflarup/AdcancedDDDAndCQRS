@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 
 namespace Restaurant
 {
@@ -8,23 +7,23 @@ namespace Restaurant
     {
         static void Main(string[] args)
         {
-            var assistantManager = new AssistantManager(new Cashier(new OrderPrinter()));
-            var cookMultiplexer =
-                new Multiplexer(new List<Cook>()
-                {
-                    new Cook(assistantManager),
-                    new Cook(assistantManager),
-                    new Cook(assistantManager)
-                });
+            var thAssMan = new ThreadedHandler(new AssistantManager(new Cashier(new OrderPrinter())));
+            var th1 = new ThreadedHandler(new Cook(thAssMan));
+            var th2 = new ThreadedHandler(new Cook(thAssMan));
+            var th3 = new ThreadedHandler(new Cook(thAssMan));
+            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan};
 
             var cookRoundRobinDispatcher =
-                new RoundRobinDispatcher(new List<Cook>()
+                new RoundRobinDispatcher(new List<ThreadedHandler>()
                 {
-                    new Cook(assistantManager),
-                    new Cook(assistantManager),
-                    new Cook(assistantManager)
+                    th1, th2, th3
                 });
             var waitor = new Waitor(cookRoundRobinDispatcher);
+
+            foreach (var startable in startables)
+            {
+                startable.Start();
+            }
 
             for (int i = 0; i < 20; i++)
             {
@@ -35,6 +34,7 @@ namespace Restaurant
                 };
                 waitor.PlaceOrder(2, lineItems);
             }
+
             Console.WriteLine("Done");
             Console.ReadLine();
         }
