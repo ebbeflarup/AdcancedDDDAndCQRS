@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace Restaurant
 {
-    public class ThreadedHandler : IHandleOrder, IStartable
+    public class ThreadedHandler : IHandleOrder, IStartable, IMonitorable
     {
         public string Name { get; }
         private readonly IHandleOrder _handleOrder;

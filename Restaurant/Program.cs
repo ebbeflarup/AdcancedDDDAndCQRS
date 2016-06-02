@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace Restaurant
 {
@@ -7,11 +9,13 @@ namespace Restaurant
     {
         static void Main(string[] args)
         {
-            var thAssMan = new ThreadedHandler(new AssistantManager(new Cashier(new OrderPrinter())));
-            var th1 = new ThreadedHandler(new Cook(thAssMan));
-            var th2 = new ThreadedHandler(new Cook(thAssMan));
-            var th3 = new ThreadedHandler(new Cook(thAssMan));
+            var r = new Random();
+            var thAssMan = new ThreadedHandler(new AssistantManager(new Cashier(new OrderPrinter())), "AssMandThread");
+            var th1 = new ThreadedHandler(new Cook(thAssMan,r.Next(1000), "Long"), "Long Thread");
+            var th2 = new ThreadedHandler(new Cook(thAssMan, r.Next(1000), "John"), "John Thread");
+            var th3 = new ThreadedHandler(new Cook(thAssMan, r.Next(1000), "Silver"), "Silver Thread");
             IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan};
+            IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan };
 
             var cookRoundRobinDispatcher =
                 new RoundRobinDispatcher(new List<ThreadedHandler>()
@@ -34,6 +38,22 @@ namespace Restaurant
                 };
                 waitor.PlaceOrder(2, lineItems);
             }
+
+            var timerThread = new Thread(() =>
+            {
+                while (true)
+                {
+                    foreach (var monitorable in monitorables)
+                    {
+                        Console.WriteLine($"Handler name {monitorable.Name} has {monitorable.Count()} orders");
+                    }
+
+                    Thread.Sleep(1000);
+                }
+
+            });
+
+            timerThread.Start();
 
             Console.WriteLine("Done");
             Console.ReadLine();
