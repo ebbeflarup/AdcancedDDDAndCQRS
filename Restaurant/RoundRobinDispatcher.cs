@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Restaurant
 {
@@ -13,10 +14,15 @@ namespace Restaurant
 
         public void Handle(Order order)
         {
-            _handleOrders.Peek().Handle(order);
-
-            var handleOrder = _handleOrders.Dequeue();
-            _handleOrders.Enqueue(handleOrder);
+            try
+            {
+                _handleOrders.Peek().Handle(order);
+            }
+            finally
+            {
+                var handleOrder = _handleOrders.Dequeue();
+                _handleOrders.Enqueue(handleOrder);
+            }
         }
     }
 }
