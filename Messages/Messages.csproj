@@ -47,7 +47,6 @@
     <Compile Include="Events\PriceUpdated.cs" />
     <Compile Include="Events\StopLossHit.cs" />
     <Compile Include="Events\StopLossPriceUpdated.cs" />
-    <Compile Include="MessageBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
