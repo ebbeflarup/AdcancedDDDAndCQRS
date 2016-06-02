@@ -4,16 +4,16 @@ using System.Threading;
 
 namespace Restaurant
 {
-    public class MorefairDispatcher : IHandle<Order>
+    public class MorefairDispatcher<TMessage> : IHandle<TMessage>
     {
-        private readonly IEnumerable<ThreadedHandler> _handlers;
+        private readonly IEnumerable<ThreadedHandler<TMessage>> _handlers;
 
-        public MorefairDispatcher(IEnumerable<ThreadedHandler> handlers)
+        public MorefairDispatcher(IEnumerable<ThreadedHandler<TMessage>> handlers)
         {
             _handlers = handlers;
         }
 
-        public void Handle(Order order)
+        public void Handle(TMessage message)
         {
             while (true)
             {
@@ -21,7 +21,7 @@ namespace Restaurant
                 {
                     if (handler.Count() < 5)
                     {
-                        handler.Handle(order);
+                        handler.Handle(message);
                         return;
                     }
                 }

@@ -1,12 +1,13 @@
 ﻿using System;
+using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
-    public class OrderPrinter : IHandle<Order>
+    public class OrderPrinter : IHandle<OrderPaid>
     {
-        public void Handle(Order order)
+        public void Handle(OrderPaid orderPaid)
         {
-            Console.WriteLine(order.Serialize());
+            Console.WriteLine(orderPaid.Order.Serialize());
         }
     }
 }

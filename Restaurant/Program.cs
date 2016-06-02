@@ -11,12 +11,12 @@ namespace Restaurant
         {
             var bus = new TopicBasedPubSub();
             var r = new Random();
-            var thCashier = new ThreadedHandler(new Cashier(bus), "CashierThread");
-            var thAssMan = new ThreadedHandler(new AssistantManager(bus), "AssManThread");
-            var th1 = new ThreadedHandler(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
-            var th2 = new ThreadedHandler(new Cook(bus, r.Next(500, 3000), "John"), "John Thread");
-            var th3 = new ThreadedHandler(new Cook(bus, r.Next(500, 3000), "Silver"), "Silver Thread");
-            var mfth = new ThreadedHandler(new MorefairDispatcher(new List<ThreadedHandler>()
+            var thCashier = new ThreadedHandler<OrderPriced>(new Cashier(bus), "CashierThread");
+            var thAssMan = new ThreadedHandler<OrderCooked>(new AssistantManager(bus), "AssManThread");
+            var th1 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
+            var th2 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "John"), "John Thread");
+            var th3 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "Silver"), "Silver Thread");
+            var mfth = new ThreadedHandler<OrderPlaced>(new MorefairDispatcher<OrderPlaced>(new List<ThreadedHandler<OrderPlaced>>()
                 {
                     th1, th2, th3
                 }), "MoreFairThreadedHandler");
@@ -26,10 +26,10 @@ namespace Restaurant
             var waitor = new Waitor(bus);
 
             // Wiring
-            bus.Subscribe<OrderPlaced>( mfth);
-            bus.Subscribe<OrderCooked>(thAssMan);
-            bus.Subscribe<OrderPriced>(thCashier);
-            bus.Subscribe<OrderPaid>(new OrderPrinter());
+            bus.Subscribe( mfth);
+            bus.Subscribe(thAssMan);
+            bus.Subscribe(thCashier);
+            bus.Subscribe(new OrderPrinter());
 
             foreach (var startable in startables)
             {
