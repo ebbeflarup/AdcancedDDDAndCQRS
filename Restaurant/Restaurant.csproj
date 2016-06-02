@@ -51,6 +51,7 @@
     <Compile Include="Cook.cs" />
     <Compile Include="IHandleOrder.cs" />
     <Compile Include="IMonitorable.cs" />
+    <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
     <Compile Include="LineItem.cs" />
     <Compile Include="LineItemEnumerator.cs" />
@@ -63,6 +64,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoundRobinDispatcher.cs" />
     <Compile Include="ThreadedHandler.cs" />
+    <Compile Include="TopicBasedPubSub.cs" />
     <Compile Include="Waitor.cs" />
   </ItemGroup>
   <ItemGroup>
