@@ -2,7 +2,7 @@
 
 namespace Restaurant
 {
-    public class OrderPrinter : IHandleOrder
+    public class OrderPrinter : IHandle<Order>
     {
         public void Handle(Order order)
         {

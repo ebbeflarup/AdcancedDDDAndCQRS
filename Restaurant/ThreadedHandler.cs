@@ -3,13 +3,13 @@ using System.Threading;
 
 namespace Restaurant
 {
-    public class ThreadedHandler : IHandleOrder, IStartable, IMonitorable
+    public class ThreadedHandler : IHandle<Order>, IStartable, IMonitorable
     {
         public string Name { get; }
-        private readonly IHandleOrder _handleOrder;
+        private readonly IHandle<Order> _handleOrder;
         private readonly ConcurrentQueue<Order> _orders; 
 
-        public ThreadedHandler(IHandleOrder handleOrder, string name)
+        public ThreadedHandler(IHandle<Order> handleOrder, string name)
         {
             Name = name;
             _handleOrder = handleOrder;

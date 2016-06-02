@@ -2,7 +2,7 @@
 
 namespace Restaurant
 {
-    public class Cook : IHandleOrder
+    public class Cook : IHandle<Order>
     {
         public string Name { get; }
         private readonly IPublisher _publisher;

@@ -1,6 +1,6 @@
 ﻿namespace Restaurant
 {
-    public class Cashier : IHandleOrder
+    public class Cashier : IHandle<Order>
     {
         private readonly IPublisher _publisher;
 

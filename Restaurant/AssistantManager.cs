@@ -2,7 +2,7 @@
 
 namespace Restaurant
 {
-    public class AssistantManager : IHandleOrder
+    public class AssistantManager : IHandle<Order>
     {
         private readonly IPublisher _publisher;
 

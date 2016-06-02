@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace Restaurant
 {
-    public class MorefairDispatcher : IHandleOrder
+    public class MorefairDispatcher : IHandle<Order>
     {
         private readonly IEnumerable<ThreadedHandler> _handlers;
 

@@ -2,10 +2,10 @@
 
 namespace Restaurant
 {
-    public class Multiplexer : IHandleOrder
+    public class Multiplexer : IHandle<Order>
     {
-        private readonly IEnumerable<IHandleOrder> _handleOrders;
-        public Multiplexer(IEnumerable<IHandleOrder> handleOrders)
+        private readonly IEnumerable<IHandle<Order>> _handleOrders;
+        public Multiplexer(IEnumerable<IHandle<Order>> handleOrders)
         {
             _handleOrders = handleOrders;
         }
