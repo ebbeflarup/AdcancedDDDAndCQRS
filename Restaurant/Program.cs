@@ -1,28 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
-using Newtonsoft.Json.Linq;
 
 namespace Restaurant
 {
-    class Program
+    internal class Program
     {
         static void Main(string[] args)
         {
+            var rand = new Random();
+
             var assistantManager = new AssistantManager(new Cashier(new OrderPrinter()));
             var cookMultiplexer =
-                new Multiplexer(new List<Cook>()
+                new Multiplexer(new List<Cook>
                 {
-                    new Cook(assistantManager),
-                    new Cook(assistantManager),
-                    new Cook(assistantManager)
+                    new Cook(assistantManager, rand.Next(1000), "Tom"),
+                    new Cook(assistantManager, rand.Next(1000), "John"),
+                    new Cook(assistantManager, rand.Next(1000), "Dick")
                 });
 
             var cookRoundRobinDispatcher =
-                new RoundRobinDispatcher(new List<Cook>()
+                new RoundRobinDispatcher(new List<Cook>
                 {
-                    new Cook(assistantManager),
-                    new Cook(assistantManager),
-                    new Cook(assistantManager)
+                    new Cook(assistantManager, rand.Next(1000), "Tom"),
+                    new Cook(assistantManager, rand.Next(1000), "John"),
+                    new Cook(assistantManager, rand.Next(1000), "Dick")
                 });
             var waitor = new Waitor(cookRoundRobinDispatcher);
 
