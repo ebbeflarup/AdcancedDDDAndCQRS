@@ -1,23 +1,43 @@
 ﻿using System.CodeDom;
 using System.Collections.Generic;
+using Restaurant.Messages;
 
 namespace Restaurant
 {
     public class TopicBasedPubSub : IPublisher
     {
-        private readonly IDictionary<string, IHandle> _topics;
+        private readonly IDictionary<string, IList<IHandle>> _topics;
 
         public TopicBasedPubSub()
         {
-            _topics = new Dictionary<string, IHandle>();
+            _topics = new Dictionary<string, IList<IHandle>>();
         }
 
         public void Subscribe<TMessage>(IHandle<TMessage> handler)
         {
-            _topics.Add(typeof(TMessage).Name, handler);
+            Subscribe(typeof(TMessage).Name, handler);
+        }
+
+        public void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        {
+            var oldList = _topics[topic] ?? new List<IHandle>();
+
+            _topics[topic] = new List<IHandle>(oldList) { handler };
+        }
+
+        public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
+        {
+            var topic = typeof (TMessage).Name;
+            var oldList = _topics[topic] ?? new List<IHandle>();
+            var list = new List<IHandle>(oldList);
+
+            list.Remove(handler);
+
+            _topics[topic] = list;
         }
 
         public void Publish<TMessage>(TMessage message)
+            where TMessage : IMessage
         {
             IHandle handler;
             
