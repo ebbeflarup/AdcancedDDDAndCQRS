@@ -1,2 +1,10 @@
 /.vs/AdvancedCourse/v14/*.suo
 /packages
+/AdvancedCourse/bin/Debug
+/Messages/bin/Debug
+/Restaurant/bin/Debug
+/Messages/obj/Debug
+/AdvancedCourse/obj/Debug
+/Restaurant/obj/Debug
+/UnitTests/bin/Debug
+/UnitTests/obj/Debug
