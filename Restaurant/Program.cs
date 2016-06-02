@@ -10,19 +10,19 @@ namespace Restaurant
         static void Main(string[] args)
         {
             var r = new Random();
-            var thAssMan = new ThreadedHandler(new AssistantManager(new Cashier(new OrderPrinter())), "AssMandThread");
-            var th1 = new ThreadedHandler(new Cook(thAssMan,r.Next(1000), "Long"), "Long Thread");
-            var th2 = new ThreadedHandler(new Cook(thAssMan, r.Next(1000), "John"), "John Thread");
-            var th3 = new ThreadedHandler(new Cook(thAssMan, r.Next(1000), "Silver"), "Silver Thread");
-            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan};
-            IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan };
-
-            var cookRoundRobinDispatcher =
-                new RoundRobinDispatcher(new List<ThreadedHandler>()
+            var thCashier = new ThreadedHandler(new Cashier(new OrderPrinter()), "CashierThread");
+            var thAssMan = new ThreadedHandler(new AssistantManager(thCashier), "AssManThread");
+            var th1 = new ThreadedHandler(new Cook(thAssMan,r.Next(500, 3000), "Long"), "Long Thread");
+            var th2 = new ThreadedHandler(new Cook(thAssMan, r.Next(500, 3000), "John"), "John Thread");
+            var th3 = new ThreadedHandler(new Cook(thAssMan, r.Next(500, 3000), "Silver"), "Silver Thread");
+            var mfth = new ThreadedHandler(new MorefairDispatcher(new List<ThreadedHandler>()
                 {
                     th1, th2, th3
-                });
-            var waitor = new Waitor(cookRoundRobinDispatcher);
+                }), "MoreFairThreadedHandler");
+            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth};
+            IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth };
+
+            var waitor = new Waitor(mfth);
 
             foreach (var startable in startables)
             {

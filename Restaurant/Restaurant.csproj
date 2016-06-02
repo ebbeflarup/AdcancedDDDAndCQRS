@@ -55,6 +55,7 @@
     <Compile Include="LineItem.cs" />
     <Compile Include="LineItemEnumerator.cs" />
     <Compile Include="LineItemList.cs" />
+    <Compile Include="MorefairDispatcher.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderPrinter.cs" />
