@@ -4,11 +4,11 @@ namespace Restaurant
 {
     public class AssistantManager : IHandleOrder
     {
-        private readonly IHandleOrder _handleOrder;
+        private readonly IPublisher _publisher;
 
-        public AssistantManager(IHandleOrder handleOrder)
+        public AssistantManager(IPublisher publisher)
         {
-            _handleOrder = handleOrder;
+            _publisher = publisher;
         }
 
         public void Handle(Order order)
@@ -19,7 +19,7 @@ namespace Restaurant
                 Tax = 6.99
             };
 
-            _handleOrder.Handle(enrichedOrder);
+            _publisher.Publish("orderPriced", enrichedOrder);
         }
     }
 }

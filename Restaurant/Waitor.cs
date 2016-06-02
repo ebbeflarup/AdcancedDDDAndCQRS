@@ -4,18 +4,19 @@ namespace Restaurant
 {
     public class Waitor
     {
-        private readonly IHandleOrder _handleOrder;
+        private readonly IPublisher _publisher;
 
-        public Waitor(IHandleOrder handleOrder)
+        public Waitor(IPublisher publisher)
         {
-            _handleOrder = handleOrder;
+            _publisher = publisher;
+
         }
 
         public Guid PlaceOrder(int tableNumber, LineItemList lineItemList)
         {
             var newOrderGuid = Guid.NewGuid();
 
-            _handleOrder.Handle(new Order(newOrderGuid, tableNumber, lineItemList));
+            _publisher.Publish("OrderCreated", new Order(newOrderGuid, tableNumber, lineItemList));
 
             return newOrderGuid;
         }

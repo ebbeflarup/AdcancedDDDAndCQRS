@@ -2,18 +2,18 @@
 {
     public class Cashier : IHandleOrder
     {
-        private readonly IHandleOrder _handleOrder;
+        private readonly IPublisher _publisher;
 
-        public Cashier(IHandleOrder handleOrder)
+        public Cashier(IPublisher publisher)
         {
-            _handleOrder = handleOrder;
+            _publisher = publisher;
         }
 
         public void Handle(Order order)
         {
             var enrichedOrder = new Order(order.Serialize()) {Paid = true};
 
-            _handleOrder.Handle(enrichedOrder);
+            _publisher.Publish("orderPaid", enrichedOrder);
         }
     }
 }
