@@ -30,7 +30,7 @@ namespace UnitTests
         {
             _stopLossProcessManager.Handle(new PriceUpdated(100));
 
-            Assert.Equal(1, _fakeMessagePublisher.PublishedMessages.Count);
+            Assert.Equal(2, _fakeMessagePublisher.PublishedMessages.Count);
 
             var publishedMessage = _fakeMessagePublisher.PublishedMessages.First();
 

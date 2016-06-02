@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Restaurant
 {
@@ -20,19 +21,22 @@ namespace Restaurant
             _jsonItem = jsonItem;
         }
 
-        public int quantity
+        [JsonProperty(PropertyName = "quantity")]
+        public int Quantity
         {
             get { return (int) _jsonItem.GetValue("quantity"); }
             set { _jsonItem.Property("quantity").Value = JToken.FromObject(value); }
         }
 
-        public string item
+        [JsonProperty(PropertyName = "item")]
+        public string Item
         {
             get { return (string) _jsonItem.GetValue("item"); }
             set { _jsonItem.Property("item").Value = JToken.FromObject(value); }
         }
 
-        public double price
+        [JsonProperty(PropertyName = "price")]
+        public double Price
         {
             get { return (double) _jsonItem.GetValue("price"); }
             set { _jsonItem.Property("price").Value = JToken.FromObject(value); }
