@@ -11,6 +11,7 @@ namespace Restaurant
         public ThreadedHandler(IHandleOrder handleOrder)
         {
             _handleOrder = handleOrder;
+            _orders = new ConcurrentQueue<Order>();
         }
 
         public void Start()
