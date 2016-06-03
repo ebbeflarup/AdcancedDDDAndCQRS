@@ -71,7 +71,8 @@
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderPrinter.cs" />
-    <Compile Include="ProcessManager\ProcessManager.cs" />
+    <Compile Include="ProcessManager\OrderProcessManager.cs" />
+    <Compile Include="ProcessManager\PaymentFirstOrderProcessmanager.cs" />
     <Compile Include="ProcessManager\ProcessManagerCoordinator.cs" />
     <Compile Include="ProcessManager\ProcessManagerFactory.cs" />
     <Compile Include="Program.cs" />
