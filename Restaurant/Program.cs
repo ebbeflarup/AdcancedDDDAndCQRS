@@ -33,7 +33,7 @@ namespace Restaurant
             var waitor = new Waitor(bus);
 
             // Wiring
-            bus.Subscribe(mfth);
+            bus.Subscribe(new DroppingHandler<CookFood>(mfth));
             bus.Subscribe(thAssMan);
             bus.Subscribe(thCashier);
             bus.Subscribe<OrderPaid>(new OrderPrinter());
