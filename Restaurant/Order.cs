@@ -34,6 +34,12 @@ namespace Restaurant
             set { SetProperty("tableNumber", value); }
         }
 
+        public bool IsDodgy
+        {
+            get { return (bool)_order.GetValue("isDodgy"); }
+            set { SetProperty("isDodgy", value); }
+        }
+
         public LineItemList LineItems
         {
             get { return new LineItemList(_order.GetValue("lineItems") as JArray); }

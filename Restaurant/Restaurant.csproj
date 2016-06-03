@@ -71,10 +71,11 @@
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderPrinter.cs" />
+    <Compile Include="ProcessManager\IOrderProcessManager.cs" />
     <Compile Include="ProcessManager\OrderProcessManager.cs" />
     <Compile Include="ProcessManager\PaymentFirstOrderProcessmanager.cs" />
-    <Compile Include="ProcessManager\ProcessManagerCoordinator.cs" />
-    <Compile Include="ProcessManager\ProcessManagerFactory.cs" />
+    <Compile Include="ProcessManager\OrderProcessManagerCoordinator.cs" />
+    <Compile Include="ProcessManager\OrderProcessManagerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoundRobinDispatcher.cs" />

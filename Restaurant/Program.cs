@@ -26,7 +26,7 @@ namespace Restaurant
                         th2,
                         th3
                     }), "MoreFairThreadedHandler");
-            var processManagerCoorTh = new ThreadedHandler<OrderPlaced>(new ProcessManagerCoordinator(bus, bus), "ProcessManagerCoordinator");
+            var processManagerCoorTh = new ThreadedHandler<OrderPlaced>(new OrderProcessManagerCoordinator(bus, bus), "ProcessManagerCoordinator");
             IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh};
             IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh };
 

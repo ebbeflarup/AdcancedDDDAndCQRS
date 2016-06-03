@@ -4,11 +4,11 @@ using Restaurant.Messages.Events;
 
 namespace Restaurant.ProcessManager
 {
-    public class PaymentFirstOrderProcessmanager : IHandle<OrderPlaced>, IHandle<OrderCooked>, IHandle<OrderPriced>, IHandle<OrderPaid>
+    public class PaymentFirstOrderProcessmanager : IOrderProcessManager, IHandle<OrderCooked>, IHandle<OrderPriced>, IHandle<OrderPaid>
     {
         private readonly IPublisher _publisher;
 
-        public Action<Guid> OnCompleted;
+        public Action<Guid> OnCompleted { get; set; }
 
         public PaymentFirstOrderProcessmanager(IPublisher publisher)
         {
