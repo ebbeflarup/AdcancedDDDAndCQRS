@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
+using Restaurant.ProcessManager;
 
 namespace Restaurant
 {
@@ -37,6 +38,7 @@ namespace Restaurant
             bus.Subscribe<OrderPaid>(new OrderPrinter());
             bus.Subscribe<OrderCooked>(new OrderPrinter());
             bus.Subscribe(Guid.NewGuid(), new Monitor());
+            bus.Subscribe(new ProcessManagerCoordinator(bus, bus));
 
 
             foreach (var startable in startables)
