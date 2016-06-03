@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Restaurant.Handlers;
 using Restaurant.Messages;
 
-namespace Restaurant
+namespace Restaurant.Bus
 {
     public class TopicBasedPubSub : IPublisher, ISubscriber
     {

@@ -1,8 +1,10 @@
 ﻿using System.Threading;
+using Restaurant.Bus;
 using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
+using Restaurant.Model;
 
-namespace Restaurant
+namespace Restaurant.Handlers.Actors
 {
     public class Cook : IHandle<CookFood>
     {

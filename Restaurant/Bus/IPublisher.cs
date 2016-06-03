@@ -1,6 +1,6 @@
 ﻿using Restaurant.Messages;
 
-namespace Restaurant
+namespace Restaurant.Bus
 {
     public interface IPublisher
     {

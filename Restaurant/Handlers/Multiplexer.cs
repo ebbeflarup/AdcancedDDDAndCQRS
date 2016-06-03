@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class Multiplexer<TMessage> : IHandle<TMessage>
     {

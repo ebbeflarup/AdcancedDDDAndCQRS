@@ -1,6 +1,4 @@
-﻿using Restaurant.Messages;
-
-namespace Restaurant
+﻿namespace Restaurant.Handlers
 {
     public interface IHandle
     { }

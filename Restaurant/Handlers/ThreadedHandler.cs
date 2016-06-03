@@ -1,7 +1,7 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class ThreadedHandler<T> : IHandle<T>, IStartable, IMonitorable
     {

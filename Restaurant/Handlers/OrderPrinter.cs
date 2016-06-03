@@ -1,7 +1,8 @@
 ﻿using System;
 using Restaurant.Messages.Events;
+using Restaurant.Model;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class OrderPrinter : IHandle<OrderPaid>, IHandle<OrderCooked>
     {

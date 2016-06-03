@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
-namespace Restaurant
+namespace Restaurant.Model
 {
     public class LineItemEnumerator : IEnumerator<LineItem>
     {

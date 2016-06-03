@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class DroppingHandler<TMessage> : IHandle<TMessage>
     {

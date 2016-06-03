@@ -1,7 +1,7 @@
 using System;
 using Newtonsoft.Json.Linq;
 
-namespace Restaurant
+namespace Restaurant.Model
 {
     public class Order
     {

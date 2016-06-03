@@ -1,7 +1,9 @@
 ﻿using System;
+using Restaurant.Bus;
 using Restaurant.Messages.Events;
+using Restaurant.Model;
 
-namespace Restaurant
+namespace Restaurant.Handlers.Actors
 {
     public class Waitor
     {

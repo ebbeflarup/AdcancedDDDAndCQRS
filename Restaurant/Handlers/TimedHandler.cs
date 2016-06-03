@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
+using Restaurant.Bus;
 using Restaurant.Messages.Commands;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class TimedHandler : IHandle<SendToMeIn>, IStartable
     {

@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Restaurant
+namespace Restaurant.Handlers.Dispatchers
 {
     public class RoundRobinDispatcher<TMessage> : IHandle<TMessage>
     {

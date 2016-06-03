@@ -1,5 +1,5 @@
 ﻿using System;
-using Restaurant;
+using Restaurant.Model;
 using Xunit;
 
 namespace UnitTests
@@ -42,11 +42,7 @@ namespace UnitTests
         [Fact]
         public void CreateNewOrder()
         {
-            var list = new LineItemList();
-
-            list.Add(new LineItem(3, "pony marmelade", 9.45));
-
-            var order = new Order(Guid.NewGuid(), 12, list);
+            var order = new Order(Guid.NewGuid(), 12, new LineItemList { new LineItem(3, "pony marmelade", 9.45) });
 
             Assert.Equal(12, order.TableNumber);
         }

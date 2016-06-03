@@ -46,18 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AssistantManager.cs" />
-    <Compile Include="Cashier.cs" />
-    <Compile Include="Cook.cs" />
-    <Compile Include="DroppingHandler.cs" />
-    <Compile Include="IHandle.cs" />
+    <Compile Include="Handlers\Actors\AssistantManager.cs" />
+    <Compile Include="Handlers\Actors\Cashier.cs" />
+    <Compile Include="Handlers\Actors\Cook.cs" />
+    <Compile Include="Handlers\DroppingHandler.cs" />
+    <Compile Include="Handlers\IHandle.cs" />
     <Compile Include="IMonitorable.cs" />
-    <Compile Include="IPublisher.cs" />
+    <Compile Include="Bus\IPublisher.cs" />
     <Compile Include="IStartable.cs" />
-    <Compile Include="ISubscriber.cs" />
-    <Compile Include="LineItem.cs" />
-    <Compile Include="LineItemEnumerator.cs" />
-    <Compile Include="LineItemList.cs" />
+    <Compile Include="Bus\ISubscriber.cs" />
+    <Compile Include="Model\LineItem.cs" />
+    <Compile Include="Model\LineItemEnumerator.cs" />
+    <Compile Include="Model\LineItemList.cs" />
     <Compile Include="Messages\Commands\CookFood.cs" />
     <Compile Include="Messages\Commands\RetryCookFood.cs" />
     <Compile Include="Messages\Commands\SendToMeIn.cs" />
@@ -69,11 +69,11 @@
     <Compile Include="Messages\IMessage.cs" />
     <Compile Include="Messages\MessageBase.cs" />
     <Compile Include="Messages\Commands\PriceOrder.cs" />
-    <Compile Include="Monitor.cs" />
-    <Compile Include="MorefairDispatcher.cs" />
-    <Compile Include="Multiplexer.cs" />
-    <Compile Include="Order.cs" />
-    <Compile Include="OrderPrinter.cs" />
+    <Compile Include="Handlers\Monitor.cs" />
+    <Compile Include="Handlers\Dispatchers\MorefairDispatcher.cs" />
+    <Compile Include="Handlers\Multiplexer.cs" />
+    <Compile Include="Model\Order.cs" />
+    <Compile Include="Handlers\OrderPrinter.cs" />
     <Compile Include="ProcessManager\IOrderProcessManager.cs" />
     <Compile Include="ProcessManager\OrderProcessManager.cs" />
     <Compile Include="ProcessManager\PaymentFirstOrderProcessmanager.cs" />
@@ -81,17 +81,18 @@
     <Compile Include="ProcessManager\OrderProcessManagerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RoundRobinDispatcher.cs" />
-    <Compile Include="SendToMeAt.cs" />
-    <Compile Include="ThreadedHandler.cs" />
-    <Compile Include="TimedHandler.cs" />
-    <Compile Include="TopicBasedPubSub.cs" />
-    <Compile Include="Waitor.cs" />
+    <Compile Include="Handlers\Dispatchers\RoundRobinDispatcher.cs" />
+    <Compile Include="Handlers\SendToMeAt.cs" />
+    <Compile Include="Handlers\ThreadedHandler.cs" />
+    <Compile Include="Handlers\TimedHandler.cs" />
+    <Compile Include="Bus\TopicBasedPubSub.cs" />
+    <Compile Include="Handlers\Actors\Waitor.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

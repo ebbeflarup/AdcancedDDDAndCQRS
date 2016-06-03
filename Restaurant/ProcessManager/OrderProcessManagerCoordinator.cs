@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using Restaurant.Bus;
+using Restaurant.Handlers;
 using Restaurant.Messages.Events;
 
 namespace Restaurant.ProcessManager

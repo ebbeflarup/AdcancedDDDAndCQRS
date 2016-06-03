@@ -1,4 +1,5 @@
 ﻿using System;
+using Restaurant.Model;
 
 namespace Restaurant.Messages.Events
 {

@@ -65,6 +65,7 @@
   <ItemGroup>
     <Compile Include="DocumentTests.cs" />
     <Compile Include="FakeMessagePublisher.cs" />
+    <Compile Include="GenericTests.cs" />
     <Compile Include="ProcessManagerTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

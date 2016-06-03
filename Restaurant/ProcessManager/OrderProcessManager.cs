@@ -1,4 +1,6 @@
 ﻿using System;
+using Restaurant.Bus;
+using Restaurant.Handlers;
 using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
 

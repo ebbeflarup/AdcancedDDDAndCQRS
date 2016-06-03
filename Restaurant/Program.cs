@@ -1,8 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Restaurant.Bus;
+using Restaurant.Handlers;
+using Restaurant.Handlers.Actors;
+using Restaurant.Handlers.Dispatchers;
 using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
+using Restaurant.Model;
 using Restaurant.ProcessManager;
 
 namespace Restaurant

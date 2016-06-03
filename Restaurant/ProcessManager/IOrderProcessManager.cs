@@ -1,4 +1,5 @@
 ﻿using System;
+using Restaurant.Handlers;
 using Restaurant.Messages.Events;
 
 namespace Restaurant.ProcessManager

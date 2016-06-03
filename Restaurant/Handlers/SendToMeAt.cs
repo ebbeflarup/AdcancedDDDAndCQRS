@@ -1,7 +1,7 @@
 using System;
 using Restaurant.Messages;
 
-namespace Restaurant
+namespace Restaurant.Handlers
 {
     public class SendToMeAt
     {

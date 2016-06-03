@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Newtonsoft.Json.Linq;
 
-namespace Restaurant
+namespace Restaurant.Model
 {
     public class LineItemList : IEnumerable<LineItem>
     {

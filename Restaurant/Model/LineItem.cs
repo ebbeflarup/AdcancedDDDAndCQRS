@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
-namespace Restaurant
+namespace Restaurant.Model
 {
     public class LineItem
     {

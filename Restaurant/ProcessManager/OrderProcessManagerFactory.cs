@@ -1,4 +1,7 @@
-﻿namespace Restaurant.ProcessManager
+﻿using Restaurant.Bus;
+using Restaurant.Model;
+
+namespace Restaurant.ProcessManager
 {
     public class OrderProcessManagerFactory
     {
