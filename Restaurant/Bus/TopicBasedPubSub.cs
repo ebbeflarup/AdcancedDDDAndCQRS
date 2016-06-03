@@ -59,7 +59,7 @@ namespace Restaurant.Bus
             Subscribe(correlationId.ToString(), handler);
         }
 
-        public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
+        public void Unsubscribe<TMessage>(IHandle<TMessage> handler) where TMessage : IMessage
         {
             Unsubscribe(typeof(TMessage).Name, handler);
         }

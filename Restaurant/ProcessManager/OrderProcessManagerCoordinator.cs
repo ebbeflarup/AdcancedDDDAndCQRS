@@ -28,7 +28,9 @@ namespace Restaurant.ProcessManager
             processManager.OnCompleted = OnCompleted;
             _processManagers.Add(orderPlaced.CorrelationId, processManager);
 
-            _subscriber.Subscribe(orderPlaced.CorrelationId, processManager);
+            dynamic p = processManager;
+
+            _subscriber.Subscribe(orderPlaced.CorrelationId, p);
 
             processManager.Handle(orderPlaced);
         }

@@ -1,19 +1,20 @@
 ﻿using System.Collections.Concurrent;
 using System.Threading;
+using Restaurant.Messages;
 
 namespace Restaurant.Handlers
 {
-    public class ThreadedHandler<T> : IHandle<T>, IStartable, IMonitorable
+    public class ThreadedHandler<TMessage> : IHandle<TMessage>, IStartable, IMonitorable where TMessage : IMessage
     {
         public string Name { get; }
-        private readonly IHandle<T> _handleOrder;
-        private readonly ConcurrentQueue<T> _orders; 
+        private readonly IHandle<TMessage> _handleOrder;
+        private readonly ConcurrentQueue<TMessage> _orders; 
 
-        public ThreadedHandler(IHandle<T> handleOrder, string name)
+        public ThreadedHandler(IHandle<TMessage> handleOrder, string name)
         {
             Name = name;
             _handleOrder = handleOrder;
-            _orders = new ConcurrentQueue<T>();
+            _orders = new ConcurrentQueue<TMessage>();
         }
 
         public int Count()
@@ -27,7 +28,7 @@ namespace Restaurant.Handlers
             {
                 while (true)
                 {
-                    T order;
+                    TMessage order;
                     while (_orders.TryDequeue(out order))
                     {
                         _handleOrder.Handle(order);
@@ -38,7 +39,7 @@ namespace Restaurant.Handlers
             thread.Start();
         }
 
-        public void Handle(T orderPlaced)
+        public void Handle(TMessage orderPlaced)
         {
             _orders.Enqueue(orderPlaced);
         }

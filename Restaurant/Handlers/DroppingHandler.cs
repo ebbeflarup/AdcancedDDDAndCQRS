@@ -1,8 +1,9 @@
 ﻿using System;
+using Restaurant.Messages;
 
 namespace Restaurant.Handlers
 {
-    public class DroppingHandler<TMessage> : IHandle<TMessage>
+    public class DroppingHandler<TMessage> : IHandle<TMessage> where TMessage : IMessage
     {
         private readonly IHandle<TMessage> _handler;
         private readonly Random _rand;

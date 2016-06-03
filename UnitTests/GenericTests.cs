@@ -11,10 +11,12 @@ namespace UnitTests
         [Fact]
         public void CanInputConcreteTypeInGenericList()
         {
+
         }
     }
 
     public interface IHandle<in TMessage>
+        where TMessage : IMessage
     {
         void Handle(TMessage message);
     }
@@ -66,7 +68,7 @@ namespace UnitTests
             Subscribe(typeof(TMessage).Name, handler);
         }
 
-        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
             dynamic h = handler;
 
@@ -85,7 +87,7 @@ namespace UnitTests
             Subscribe(correlationId.ToString(), handler);
         }
 
-        public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
+        public void Unsubscribe<TMessage>(IHandle<TMessage> handler) where TMessage : IMessage
         {
             Unsubscribe(typeof(TMessage).Name, handler);
         }
@@ -95,7 +97,7 @@ namespace UnitTests
             Unsubscribe(correlationId.ToString(), handler);
         }
 
-        private void Unsubscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        private void Unsubscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
             dynamic h = handler;
 

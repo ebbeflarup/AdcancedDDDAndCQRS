@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Restaurant.Messages;
 
 namespace Restaurant.Handlers
 {
-    public class Multiplexer<TMessage> : IHandle<TMessage>
+    public class Multiplexer<TMessage> : IHandle<TMessage> where TMessage : IMessage
     {
         private readonly IEnumerable<IHandle<TMessage>> _handlers;
         public Multiplexer(IEnumerable<IHandle<TMessage>> handlers)

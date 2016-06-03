@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading;
+using Restaurant.Messages;
 
 namespace Restaurant.Handlers.Dispatchers
 {
-    public class MorefairDispatcher<TMessage> : IHandle<TMessage>
+    public class MorefairDispatcher<TMessage> : IHandle<TMessage> where TMessage : IMessage
     {
         private readonly IEnumerable<ThreadedHandler<TMessage>> _handlers;
 

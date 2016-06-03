@@ -1,10 +1,11 @@
-﻿namespace Restaurant.Handlers
-{
-    public interface IHandle
-    { }
+﻿using Restaurant.Messages;
 
-    public interface IHandle<in T> :IHandle
+namespace Restaurant.Handlers
+{
+    public interface IHandle { }
+
+    public interface IHandle<in TMessage> : IHandle where TMessage : IMessage
     {
-        void Handle(T orderPlaced);
+        void Handle(TMessage message);
     }
 }

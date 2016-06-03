@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
+using Restaurant.Messages;
 
 namespace Restaurant.Handlers.Dispatchers
 {
-    public class RoundRobinDispatcher<TMessage> : IHandle<TMessage>
+    public class RoundRobinDispatcher<TMessage> : IHandle<TMessage> where TMessage : IMessage
     {
         private readonly Queue<IHandle<TMessage>> _handlers;
 
