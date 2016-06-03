@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Restaurant.Messages;
 
@@ -13,17 +14,16 @@ namespace Restaurant.Handlers.Dispatchers
             _handlers = handlers;
         }
 
-        public void Handle(TMessage orderPlaced)
+        public void Handle(TMessage message)
         {
             while (true)
             {
-                foreach (var handler in _handlers)
+                var handlerWithNonFullQueue = _handlers.FirstOrDefault(h => h.Count < 5);
+
+                if (handlerWithNonFullQueue != null)
                 {
-                    if (handler.Count() < 5)
-                    {
-                        handler.Handle(orderPlaced);
-                        return;
-                    }
+                    handlerWithNonFullQueue.Handle(message);
+                    return;
                 }
                 Thread.Sleep(1);
             }

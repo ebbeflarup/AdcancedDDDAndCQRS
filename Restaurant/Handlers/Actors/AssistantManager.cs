@@ -15,15 +15,15 @@ namespace Restaurant.Handlers.Actors
             _publisher = publisher;
         }
 
-        public void Handle(PriceOrder orderPlaced)
+        public void Handle(PriceOrder priceOrder)
         {
-            var enrichedOrder = new Order(orderPlaced.Order.Serialize())
+            var enrichedOrder = new Order(priceOrder.Order.Serialize())
             {
-                Total = orderPlaced.Order.LineItems.Sum(lineItem => lineItem.Price),
+                Total = priceOrder.Order.LineItems.Sum(lineItem => lineItem.Price),
                 Tax = 6.99
             };
 
-            _publisher.Publish(new OrderPriced(enrichedOrder, orderPlaced.CorrelationId, orderPlaced.Id));
+            _publisher.Publish(new OrderPriced(enrichedOrder, priceOrder.CorrelationId, priceOrder.Id));
         }
     }
 }

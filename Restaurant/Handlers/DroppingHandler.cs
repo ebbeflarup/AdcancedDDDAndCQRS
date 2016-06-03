@@ -14,7 +14,7 @@ namespace Restaurant.Handlers
             _rand = new Random();
         }
 
-        public void Handle(TMessage orderPlaced)
+        public void Handle(TMessage message)
         {
             if (_rand.Next(0, 10) == 7)
             {
@@ -22,7 +22,7 @@ namespace Restaurant.Handlers
                 return;
             }
 
-            _handler.Handle(orderPlaced);
+            _handler.Handle(message);
         }
     }
 }

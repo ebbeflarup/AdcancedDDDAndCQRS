@@ -6,14 +6,14 @@ namespace Restaurant.Handlers
 {
     public class OrderPrinter : IHandle<OrderPaid>, IHandle<OrderCooked>
     {
-        public void Handle(OrderPaid orderPlaced)
+        public void Handle(OrderPaid orderPaid)
         {
-            PrintOrder(orderPlaced.Order);
+            PrintOrder(orderPaid.Order);
         }
 
-        public void Handle(OrderCooked orderPlaced)
+        public void Handle(OrderCooked orderCooked)
         {
-            PrintOrder(orderPlaced.Order);
+            PrintOrder(orderCooked.Order);
         }
 
         private void PrintOrder(Order order)

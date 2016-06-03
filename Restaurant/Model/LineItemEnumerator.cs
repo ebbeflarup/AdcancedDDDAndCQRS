@@ -27,6 +27,7 @@ namespace Restaurant.Model
         object IEnumerator.Current => Current;
 
         public LineItem Current => _lineItemList[_index];
+
         public void Dispose()
         {
         }

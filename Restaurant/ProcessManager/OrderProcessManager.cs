@@ -45,12 +45,12 @@ namespace Restaurant.ProcessManager
             OnCompleted(orderPaid.CorrelationId);
         }
 
-        public void Handle(RetryCookFood orderPlaced)
+        public void Handle(RetryCookFood retryCookFood)
         {
             if (_isFoodCooked)
                 return;
 
-            _publisher.Publish(new CookFood(orderPlaced.Order, orderPlaced.CorrelationId, orderPlaced.CausationId));
+            _publisher.Publish(new CookFood(retryCookFood.Order, retryCookFood.CorrelationId, retryCookFood.Id));
         }
     }
 }

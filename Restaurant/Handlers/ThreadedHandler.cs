@@ -7,19 +7,17 @@ namespace Restaurant.Handlers
     public class ThreadedHandler<TMessage> : IHandle<TMessage>, IStartable, IMonitorable where TMessage : IMessage
     {
         public string Name { get; }
-        private readonly IHandle<TMessage> _handleOrder;
-        private readonly ConcurrentQueue<TMessage> _orders; 
 
-        public ThreadedHandler(IHandle<TMessage> handleOrder, string name)
+        public int Count => _messages.Count;
+
+        private readonly IHandle<TMessage> _handler;
+        private readonly ConcurrentQueue<TMessage> _messages; 
+
+        public ThreadedHandler(IHandle<TMessage> handler, string name)
         {
             Name = name;
-            _handleOrder = handleOrder;
-            _orders = new ConcurrentQueue<TMessage>();
-        }
-
-        public int Count()
-        {
-            return _orders.Count;
+            _handler = handler;
+            _messages = new ConcurrentQueue<TMessage>();
         }
 
         public void Start()
@@ -29,9 +27,9 @@ namespace Restaurant.Handlers
                 while (true)
                 {
                     TMessage order;
-                    while (_orders.TryDequeue(out order))
+                    while (_messages.TryDequeue(out order))
                     {
-                        _handleOrder.Handle(order);
+                        _handler.Handle(order);
                     }
                     Thread.Sleep(1);
                 }
@@ -39,9 +37,9 @@ namespace Restaurant.Handlers
             thread.Start();
         }
 
-        public void Handle(TMessage orderPlaced)
+        public void Handle(TMessage message)
         {
-            _orders.Enqueue(orderPlaced);
+            _messages.Enqueue(message);
         }
     }
 }

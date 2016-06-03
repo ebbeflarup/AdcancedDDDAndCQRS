@@ -70,7 +70,7 @@ namespace Restaurant
                 {
                     foreach (var monitorable in monitorables)
                     {
-                        Console.WriteLine($"Handler name {monitorable.Name} has {monitorable.Count()} orders");
+                        Console.WriteLine($"Handler name {monitorable.Name} has {monitorable.Count} orders");
                     }
 
                     Thread.Sleep(1000);

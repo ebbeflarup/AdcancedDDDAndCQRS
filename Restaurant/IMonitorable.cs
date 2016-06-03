@@ -3,6 +3,7 @@
     public interface IMonitorable
     {
         string Name { get; }
-        int Count();
+
+        int Count { get; }
     }
 }

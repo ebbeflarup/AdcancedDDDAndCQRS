@@ -10,19 +10,19 @@ namespace Restaurant.Handlers.Actors
     {
         public string Name { get; }
         private readonly IPublisher _publisher;
-        private readonly int _sleeptime;
+        private readonly int _cookingTime;
 
-        public Cook(IPublisher publisher, int sleeptime, string name)
+        public Cook(IPublisher publisher, int cookingTime, string name)
         {
             Name = name;
             _publisher = publisher;
-            _sleeptime = sleeptime;
+            _cookingTime = cookingTime;
         }
 
         public void Handle(CookFood orderPlaced)
         {
             var enrichedOrder = new Order(orderPlaced.Order.Serialize()) {Ingredients = "ponies, elephants"};
-            Thread.Sleep(_sleeptime);
+            Thread.Sleep(_cookingTime);
 
             _publisher.Publish(new OrderCooked(enrichedOrder, orderPlaced.CorrelationId, orderPlaced.Id));
         }
