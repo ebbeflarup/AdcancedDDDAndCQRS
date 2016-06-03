@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
-using Restaurant.Messages;
 using Restaurant.Messages.Commands;
 
 namespace Restaurant
