@@ -59,6 +59,7 @@
     <Compile Include="LineItemEnumerator.cs" />
     <Compile Include="LineItemList.cs" />
     <Compile Include="Messages\Commands\CookFood.cs" />
+    <Compile Include="Messages\Commands\RetryCookFood.cs" />
     <Compile Include="Messages\Commands\SendToMeIn.cs" />
     <Compile Include="Messages\Commands\TakePayment.cs" />
     <Compile Include="Messages\Events\OrderCooked.cs" />
