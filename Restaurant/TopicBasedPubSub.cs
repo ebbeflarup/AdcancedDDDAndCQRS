@@ -21,7 +21,7 @@ namespace Restaurant
             Publish(message.CorrelationId.ToString(), message);
         }
 
-        public void Publish<TMessage>(string topic, TMessage message)
+        private void Publish<TMessage>(string topic, TMessage message)
             where TMessage : IMessage
         {
             IList<IHandle> handlers;
@@ -40,7 +40,7 @@ namespace Restaurant
             Subscribe(typeof (TMessage).Name, handler);
         }
 
-        public void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
         {
             lock (_topicsLock)
             {
