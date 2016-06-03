@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using Restaurant.Messages;
 
@@ -40,7 +41,7 @@ namespace Restaurant
             Subscribe(typeof (TMessage).Name, handler);
         }
 
-        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        private void Subscribe(string topic, IHandle handler)
         {
             lock (_topicsLock)
             {
@@ -50,6 +51,11 @@ namespace Restaurant
 
                 _topics[topic] = list;
             }
+        }
+
+        public void Subscribe(Guid correlationId, IHandle handler)
+        {
+            Subscribe(correlationId.ToString(), handler);
         }
 
         public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
