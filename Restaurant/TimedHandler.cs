@@ -6,7 +6,7 @@ using Restaurant.Messages.Commands;
 
 namespace Restaurant
 {
-    public class TimedHandler<TMessage> : IHandle<SendToMeIn>, IStartable
+    public class TimedHandler : IHandle<SendToMeIn>, IStartable
     {
         private readonly IPublisher _publisher;
         private readonly IList<SendToMeAt> _sendToMeAts;

@@ -13,6 +13,7 @@ namespace Restaurant
         {
             var bus = new TopicBasedPubSub();
             var r = new Random();
+            var timedHandlerTh = new TimedHandler(bus);
             var thCashier = new ThreadedHandler<TakePayment>(new Cashier(bus), "CashierThread");
             var thAssMan = new ThreadedHandler<PriceOrder>(new AssistantManager(bus), "AssManThread");
             var th1 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
@@ -27,7 +28,7 @@ namespace Restaurant
                         th3
                     }), "MoreFairThreadedHandler");
             var processManagerCoorTh = new ThreadedHandler<OrderPlaced>(new OrderProcessManagerCoordinator(bus, bus), "ProcessManagerCoordinator");
-            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh};
+            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh, timedHandlerTh };
             IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh };
 
             var waitor = new Waitor(bus);
@@ -39,7 +40,7 @@ namespace Restaurant
             bus.Subscribe<OrderPaid>(new OrderPrinter());
             //bus.Subscribe<OrderCooked>(new OrderPrinter());
             //bus.Subscribe(Guid.NewGuid(), new Monitor());
-            
+            bus.Subscribe(timedHandlerTh);
             bus.Subscribe(processManagerCoorTh);
 
 
