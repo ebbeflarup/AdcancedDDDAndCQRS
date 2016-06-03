@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading;
+using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
 
 namespace Restaurant
@@ -11,15 +12,19 @@ namespace Restaurant
         {
             var bus = new TopicBasedPubSub();
             var r = new Random();
-            var thCashier = new ThreadedHandler<OrderPriced>(new Cashier(bus), "CashierThread");
-            var thAssMan = new ThreadedHandler<OrderCooked>(new AssistantManager(bus), "AssManThread");
-            var th1 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
-            var th2 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "John"), "John Thread");
-            var th3 = new ThreadedHandler<OrderPlaced>(new Cook(bus, r.Next(500, 3000), "Silver"), "Silver Thread");
-            var mfth = new ThreadedHandler<OrderPlaced>(new MorefairDispatcher<OrderPlaced>(new List<ThreadedHandler<OrderPlaced>>()
-                {
-                    th1, th2, th3
-                }), "MoreFairThreadedHandler");
+            var thCashier = new ThreadedHandler<TakePayment>(new Cashier(bus), "CashierThread");
+            var thAssMan = new ThreadedHandler<PriceOrder>(new AssistantManager(bus), "AssManThread");
+            var th1 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
+            var th2 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "John"), "John Thread");
+            var th3 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Silver"), "Silver Thread");
+            var mfth =
+                new ThreadedHandler<CookFood>(
+                    new MorefairDispatcher<CookFood>(new List<ThreadedHandler<CookFood>>()
+                    {
+                        th1,
+                        th2,
+                        th3
+                    }), "MoreFairThreadedHandler");
             IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth};
             IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth };
 

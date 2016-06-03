@@ -1,5 +1,5 @@
 ﻿using System.Linq;
-using Restaurant.Messages;
+using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
 
 namespace Restaurant
