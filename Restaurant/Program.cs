@@ -32,6 +32,7 @@ namespace Restaurant
             bus.Subscribe<OrderPaid>(new OrderPrinter());
             bus.Subscribe<OrderCooked>(new OrderPrinter());
 
+
             foreach (var startable in startables)
             {
                 startable.Start();

@@ -1,8 +1,9 @@
-﻿using Restaurant.Messages.Events;
+﻿using Restaurant.Messages.Commands;
+using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
-    public class Cashier : IHandle<OrderPriced>
+    public class Cashier : IHandle<TakePayment>
     {
         private readonly IPublisher _publisher;
 
@@ -11,9 +12,9 @@ namespace Restaurant
             _publisher = publisher;
         }
 
-        public void Handle(OrderPriced orderPriced)
+        public void Handle(TakePayment takePayment)
         {
-            var enrichedOrder = new Order(orderPriced.Order.Serialize()) {Paid = true};
+            var enrichedOrder = new Order(takePayment.Order.Serialize()) {Paid = true};
 
             _publisher.Publish(new OrderPaid(enrichedOrder));
         }

@@ -1,9 +1,10 @@
 ﻿using System.Threading;
+using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
-    public class Cook : IHandle<OrderPlaced>
+    public class Cook : IHandle<CookFood>
     {
         public string Name { get; }
         private readonly IPublisher _publisher;
@@ -16,9 +17,9 @@ namespace Restaurant
             _sleeptime = sleeptime;
         }
 
-        public void Handle(OrderPlaced orderPlaced)
+        public void Handle(CookFood cookFood)
         {
-            var enrichedOrder = new Order(orderPlaced.Order.Serialize()) {Ingredients = "ponies, elephants"};
+            var enrichedOrder = new Order(cookFood.Order.Serialize()) {Ingredients = "ponies, elephants"};
             Thread.Sleep(_sleeptime);
 
             _publisher.Publish(new OrderCooked(enrichedOrder));
