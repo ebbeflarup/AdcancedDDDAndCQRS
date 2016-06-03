@@ -22,7 +22,7 @@ namespace Restaurant
             var enrichedOrder = new Order(cookFood.Order.Serialize()) {Ingredients = "ponies, elephants"};
             Thread.Sleep(_sleeptime);
 
-            _publisher.Publish(new OrderCooked(enrichedOrder));
+            _publisher.Publish(new OrderCooked(enrichedOrder, cookFood.CorrelationId, cookFood.Id));
         }
     }
 }

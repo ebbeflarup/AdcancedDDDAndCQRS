@@ -16,7 +16,7 @@ namespace Restaurant
         {
             var enrichedOrder = new Order(takePayment.Order.Serialize()) {Paid = true};
 
-            _publisher.Publish(new OrderPaid(enrichedOrder));
+            _publisher.Publish(new OrderPaid(enrichedOrder, takePayment.CorrelationId, takePayment.Id));
         }
     }
 }
