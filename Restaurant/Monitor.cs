@@ -5,7 +5,7 @@ namespace Restaurant
 {
     public class Monitor : IHandle<IMessage>
     {
-        public void Handle(IMessage t)
+        public void Handle(IMessage orderPlaced)
         {
             Console.WriteLine("Message received");
         }

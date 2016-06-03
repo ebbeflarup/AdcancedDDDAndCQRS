@@ -13,15 +13,15 @@ namespace Restaurant
             _publisher = publisher;
         }
 
-        public void Handle(PriceOrder priceOrder)
+        public void Handle(PriceOrder orderPlaced)
         {
-            var enrichedOrder = new Order(priceOrder.Order.Serialize())
+            var enrichedOrder = new Order(orderPlaced.Order.Serialize())
             {
-                Total = priceOrder.Order.LineItems.Sum(lineItem => lineItem.Price),
+                Total = orderPlaced.Order.LineItems.Sum(lineItem => lineItem.Price),
                 Tax = 6.99
             };
 
-            _publisher.Publish(new OrderPriced(enrichedOrder, priceOrder.CorrelationId, priceOrder.Id));
+            _publisher.Publish(new OrderPriced(enrichedOrder, orderPlaced.CorrelationId, orderPlaced.Id));
         }
     }
 }

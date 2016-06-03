@@ -53,6 +53,7 @@
     <Compile Include="IMonitorable.cs" />
     <Compile Include="IPublisher.cs" />
     <Compile Include="IStartable.cs" />
+    <Compile Include="ISubscriber.cs" />
     <Compile Include="LineItem.cs" />
     <Compile Include="LineItemEnumerator.cs" />
     <Compile Include="LineItemList.cs" />
@@ -70,6 +71,9 @@
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Order.cs" />
     <Compile Include="OrderPrinter.cs" />
+    <Compile Include="ProcessManager\ProcessManager.cs" />
+    <Compile Include="ProcessManager\ProcessManagerCoordinator.cs" />
+    <Compile Include="ProcessManager\ProcessManagerFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoundRobinDispatcher.cs" />

@@ -7,6 +7,6 @@ namespace Restaurant
 
     public interface IHandle<in T> :IHandle
     {
-        void Handle(T t);
+        void Handle(T orderPlaced);
     }
 }

@@ -11,11 +11,11 @@ namespace Restaurant
             _handlers = new Queue<IHandle<TMessage>>(handlers);
         }
 
-        public void Handle(TMessage message)
+        public void Handle(TMessage orderPlaced)
         {
             try
             {
-                _handlers.Peek().Handle(message);
+                _handlers.Peek().Handle(orderPlaced);
             }
             finally
             {

@@ -5,14 +5,14 @@ namespace Restaurant
 {
     public class OrderPrinter : IHandle<OrderPaid>, IHandle<OrderCooked>
     {
-        public void Handle(OrderPaid orderPaid)
+        public void Handle(OrderPaid orderPlaced)
         {
-            PrintOrder(orderPaid.Order);
+            PrintOrder(orderPlaced.Order);
         }
 
-        public void Handle(OrderCooked orderCooked)
+        public void Handle(OrderCooked orderPlaced)
         {
-            PrintOrder(orderCooked.Order);
+            PrintOrder(orderPlaced.Order);
         }
 
         private void PrintOrder(Order order)

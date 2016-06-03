@@ -12,11 +12,11 @@ namespace Restaurant
             _publisher = publisher;
         }
 
-        public void Handle(TakePayment takePayment)
+        public void Handle(TakePayment orderPlaced)
         {
-            var enrichedOrder = new Order(takePayment.Order.Serialize()) {Paid = true};
+            var enrichedOrder = new Order(orderPlaced.Order.Serialize()) {Paid = true};
 
-            _publisher.Publish(new OrderPaid(enrichedOrder, takePayment.CorrelationId, takePayment.Id));
+            _publisher.Publish(new OrderPaid(enrichedOrder, orderPlaced.CorrelationId, orderPlaced.Id));
         }
     }
 }

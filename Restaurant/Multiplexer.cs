@@ -10,11 +10,11 @@ namespace Restaurant
             _handlers = handlers;
         }
 
-        public void Handle(TMessage message)
+        public void Handle(TMessage orderPlaced)
         {
             foreach (var handler in _handlers)
             {
-                handler.Handle(message);
+                handler.Handle(orderPlaced);
             }
         }
     }

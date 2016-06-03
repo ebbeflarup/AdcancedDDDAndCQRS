@@ -5,7 +5,7 @@ using Restaurant.Messages;
 
 namespace Restaurant
 {
-    public class TopicBasedPubSub : IPublisher
+    public class TopicBasedPubSub : IPublisher, ISubscriber
     {
         private readonly IDictionary<string, IList<IHandle>> _topics;
         private readonly object _topicsLock = new object();
@@ -41,7 +41,7 @@ namespace Restaurant
             Subscribe(typeof (TMessage).Name, handler);
         }
 
-        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
+        private void Subscribe(string topic, IHandle handler)
         {
             lock (_topicsLock)
             {
@@ -53,7 +53,7 @@ namespace Restaurant
             }
         }
 
-        public void Subscribe<TMessage>(Guid correlationId, IHandle<TMessage> handler)
+        public void Subscribe(Guid correlationId, IHandle handler)
         {
             Subscribe(correlationId.ToString(), handler);
         }

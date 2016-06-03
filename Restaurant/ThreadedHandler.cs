@@ -38,9 +38,9 @@ namespace Restaurant
             thread.Start();
         }
 
-        public void Handle(T order)
+        public void Handle(T orderPlaced)
         {
-            _orders.Enqueue(order);
+            _orders.Enqueue(orderPlaced);
         }
     }
 }

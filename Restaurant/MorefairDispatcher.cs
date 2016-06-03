@@ -13,7 +13,7 @@ namespace Restaurant
             _handlers = handlers;
         }
 
-        public void Handle(TMessage message)
+        public void Handle(TMessage orderPlaced)
         {
             while (true)
             {
@@ -21,7 +21,7 @@ namespace Restaurant
                 {
                     if (handler.Count() < 5)
                     {
-                        handler.Handle(message);
+                        handler.Handle(orderPlaced);
                         return;
                     }
                 }

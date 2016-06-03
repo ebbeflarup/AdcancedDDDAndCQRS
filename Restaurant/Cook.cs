@@ -17,12 +17,12 @@ namespace Restaurant
             _sleeptime = sleeptime;
         }
 
-        public void Handle(CookFood cookFood)
+        public void Handle(CookFood orderPlaced)
         {
-            var enrichedOrder = new Order(cookFood.Order.Serialize()) {Ingredients = "ponies, elephants"};
+            var enrichedOrder = new Order(orderPlaced.Order.Serialize()) {Ingredients = "ponies, elephants"};
             Thread.Sleep(_sleeptime);
 
-            _publisher.Publish(new OrderCooked(enrichedOrder, cookFood.CorrelationId, cookFood.Id));
+            _publisher.Publish(new OrderCooked(enrichedOrder, orderPlaced.CorrelationId, orderPlaced.Id));
         }
     }
 }
