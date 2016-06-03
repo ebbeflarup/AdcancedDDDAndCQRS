@@ -26,8 +26,9 @@ namespace Restaurant
                         th2,
                         th3
                     }), "MoreFairThreadedHandler");
-            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth};
-            IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth };
+            var processManagerCoorTh = new ThreadedHandler<OrderPlaced>(new ProcessManagerCoordinator(bus, bus), "ProcessManagerCoordinator");
+            IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh};
+            IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh };
 
             var waitor = new Waitor(bus);
 
@@ -38,7 +39,8 @@ namespace Restaurant
             bus.Subscribe<OrderPaid>(new OrderPrinter());
             //bus.Subscribe<OrderCooked>(new OrderPrinter());
             //bus.Subscribe(Guid.NewGuid(), new Monitor());
-            bus.Subscribe(new ProcessManagerCoordinator(bus, bus));
+            
+            bus.Subscribe(processManagerCoorTh);
 
 
             foreach (var startable in startables)
