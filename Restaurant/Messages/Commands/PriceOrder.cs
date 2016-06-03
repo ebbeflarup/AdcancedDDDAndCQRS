@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Restaurant.Messages
+﻿namespace Restaurant.Messages.Commands
 {
-    class PriceOrder
+    public class PriceOrder
     {
+        public Order Order { get; private set; }
+
+        public PriceOrder(Order order)
+        {
+            Order = order;
+        }
     }
 }
