@@ -12,13 +12,13 @@ namespace Restaurant
 {
     public class TimedHandler<TMessage> : IHandle<SendToMeIn>, IStartable
     {
-        private readonly IHandle<TMessage> _handler;
+        private readonly IPublisher _publisher;
         private readonly IList<SendToMeAt> _sendToMeAts;
         private readonly object _sendToMeAtsLock;
 
-        public TimedHandler(IHandle<TMessage> handler)
+        public TimedHandler(IPublisher publisher)
         {
-            _handler = handler;
+            _publisher = publisher;
             _sendToMeAts = new List<SendToMeAt>();
             _sendToMeAtsLock = new object();
         }
@@ -52,7 +52,7 @@ namespace Restaurant
 
                     foreach (var sendToMeAt in sendNow)
                     {
-                        _handler.Handle(sendToMeAt.Message);
+                        _publisher.Publish(sendToMeAt.Message);
                     }
                     Thread.Sleep(1);
                 }
