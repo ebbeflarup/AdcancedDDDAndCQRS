@@ -1,8 +1,10 @@
-﻿namespace Restaurant.Messages.Events
+﻿using System;
+
+namespace Restaurant.Messages.Events
 {
     public class OrderPaid : MessageBase
     {
-        public OrderPaid(Order order)
+        public OrderPaid(Order order, Guid correlationId, Guid causationId) : base(correlationId, causationId)
         {
             Order = order;
         }

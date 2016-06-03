@@ -21,7 +21,7 @@ namespace Restaurant
                 Tax = 6.99
             };
 
-            _publisher.Publish(new OrderPriced(enrichedOrder));
+            _publisher.Publish(new OrderPriced(enrichedOrder, priceOrder.CorrelationId, priceOrder.Id));
         }
     }
 }
