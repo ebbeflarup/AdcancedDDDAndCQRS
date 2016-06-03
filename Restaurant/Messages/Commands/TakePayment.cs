@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Messages.Commands
 {
-    public class TakePayment
+    public class TakePayment : MessageBase
     {
         public Order Order { get; private set; }
 

@@ -1,6 +1,6 @@
 ﻿namespace Restaurant.Messages.Commands
 {
-    public class PriceOrder
+    public class PriceOrder : MessageBase
     {
         public Order Order { get; private set; }
 
