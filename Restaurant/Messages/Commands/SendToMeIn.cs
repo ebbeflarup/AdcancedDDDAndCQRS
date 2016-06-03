@@ -1,10 +1,14 @@
 ﻿namespace Restaurant.Messages.Commands
 {
-    public class SendToMeIn<TMessage>
+    public class SendToMeIn
     {
-        public SendToMeIn(int seconds, TMessage message)
+        public int Seconds { get; }
+        public IMessage InnerMessage { get; }
+
+        public SendToMeIn(int seconds, IMessage message)
         {
-            
+            Seconds = seconds;
+            InnerMessage = message;
         }
     }
 }
