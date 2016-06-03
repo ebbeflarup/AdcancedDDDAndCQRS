@@ -41,7 +41,7 @@ namespace Restaurant
             Subscribe(typeof (TMessage).Name, handler);
         }
 
-        private void Subscribe(string topic, IHandle handler)
+        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler)
         {
             lock (_topicsLock)
             {
@@ -53,7 +53,7 @@ namespace Restaurant
             }
         }
 
-        public void Subscribe(Guid correlationId, IHandle handler)
+        public void Subscribe<TMessage>(Guid correlationId, IHandle<TMessage> handler)
         {
             Subscribe(correlationId.ToString(), handler);
         }

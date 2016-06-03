@@ -65,6 +65,7 @@
     <Compile Include="Messages\IMessage.cs" />
     <Compile Include="Messages\MessageBase.cs" />
     <Compile Include="Messages\Commands\PriceOrder.cs" />
+    <Compile Include="Monitor.cs" />
     <Compile Include="MorefairDispatcher.cs" />
     <Compile Include="Multiplexer.cs" />
     <Compile Include="Order.cs" />
