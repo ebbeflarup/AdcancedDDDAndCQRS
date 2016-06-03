@@ -17,9 +17,15 @@ namespace Restaurant
         public void Publish<TMessage>(TMessage message)
             where TMessage : IMessage
         {
+            Publish(typeof(TMessage).Name, message);
+        }
+
+        public void Publish<TMessage>(string topic, TMessage message)
+            where TMessage : IMessage
+        {
             IList<IHandle> handlers;
 
-            if (!_topics.TryGetValue(typeof (TMessage).Name, out handlers)) return;
+            if (!_topics.TryGetValue(topic, out handlers)) return;
 
             foreach (var typedHandler in handlers.Select(handler => handler as IHandle<TMessage>))
             {
