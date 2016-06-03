@@ -60,9 +60,18 @@ namespace Restaurant
 
         public void Unsubscribe<TMessage>(IHandle<TMessage> handler)
         {
+            Unsubscribe(typeof(TMessage).Name, handler);
+        }
+
+        public void Unsubscribe(Guid correlationId, IHandle handler)
+        {
+            Unsubscribe(correlationId.ToString(), handler);
+        }
+
+        private void Unsubscribe(string topic, IHandle handler)
+        {
             lock (_topicsLock)
             {
-                var topic = typeof(TMessage).Name;
                 var oldList = _topics[topic] ?? new List<IHandle>();
                 var list = new List<IHandle>(oldList);
 
