@@ -9,7 +9,7 @@ namespace UnitTests
     public class GenericTests
     {
         [Fact]
-        public void CanInputConcreteTypeInGenericList()
+        public void Nothing()
         {
 
         }
