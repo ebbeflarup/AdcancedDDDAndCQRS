@@ -38,7 +38,7 @@ namespace Restaurant
                     IList<SendToMeAt> sendNow;
                     lock (_sendToMeAtsLock)
                     {
-                        sendNow = _sendToMeAts.Where(s => s.When > DateTime.Now).ToList();
+                        sendNow = _sendToMeAts.Where(s => s.When < DateTime.Now).ToList();
 
                         foreach (var sendToMeAt in sendNow)
                         {
