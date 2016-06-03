@@ -1,9 +1,10 @@
 ﻿using System.Linq;
+using Restaurant.Messages.Commands;
 using Restaurant.Messages.Events;
 
 namespace Restaurant
 {
-    public class AssistantManager : IHandle<OrderCooked>
+    public class AssistantManager : IHandle<PriceOrder>
     {
         private readonly IPublisher _publisher;
 
@@ -12,11 +13,11 @@ namespace Restaurant
             _publisher = publisher;
         }
 
-        public void Handle(OrderCooked orderCooked)
+        public void Handle(PriceOrder priceOrder)
         {
-            var enrichedOrder = new Order(orderCooked.Order.Serialize())
+            var enrichedOrder = new Order(priceOrder.Order.Serialize())
             {
-                Total = orderCooked.Order.LineItems.Sum(lineItem => lineItem.Price),
+                Total = priceOrder.Order.LineItems.Sum(lineItem => lineItem.Price),
                 Tax = 6.99
             };
 
