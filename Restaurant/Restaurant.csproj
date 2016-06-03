@@ -81,6 +81,7 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RoundRobinDispatcher.cs" />
+    <Compile Include="SendToMeAt.cs" />
     <Compile Include="ThreadedHandler.cs" />
     <Compile Include="TimedHandler.cs" />
     <Compile Include="TopicBasedPubSub.cs" />
