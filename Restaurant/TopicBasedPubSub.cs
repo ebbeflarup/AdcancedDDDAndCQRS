@@ -18,6 +18,7 @@ namespace Restaurant
             where TMessage : IMessage
         {
             Publish(typeof(TMessage).Name, message);
+            Publish(message.CausationId.ToString(), message);
         }
 
         public void Publish<TMessage>(string topic, TMessage message)
