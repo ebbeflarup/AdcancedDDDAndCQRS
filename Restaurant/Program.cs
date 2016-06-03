@@ -36,8 +36,8 @@ namespace Restaurant
             bus.Subscribe(thAssMan);
             bus.Subscribe(thCashier);
             bus.Subscribe<OrderPaid>(new OrderPrinter());
-            bus.Subscribe<OrderCooked>(new OrderPrinter());
-            bus.Subscribe(Guid.NewGuid(), new Monitor());
+            //bus.Subscribe<OrderCooked>(new OrderPrinter());
+            //bus.Subscribe(Guid.NewGuid(), new Monitor());
             bus.Subscribe(new ProcessManagerCoordinator(bus, bus));
 
 

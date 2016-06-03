@@ -4,9 +4,11 @@ using Restaurant.Messages.Events;
 
 namespace Restaurant.ProcessManager
 {
-    public class ProcessManager : IHandle<OrderPlaced>, IHandle<OrderCooked>, IHandle<OrderPriced>
+    public class ProcessManager : IHandle<OrderPlaced>, IHandle<OrderCooked>, IHandle<OrderPriced>, IHandle<OrderPaid>
     {
         private readonly IPublisher _publisher;
+
+        public Action<Guid> OnCompleted; 
 
         public ProcessManager(IPublisher publisher)
         {
@@ -25,10 +27,16 @@ namespace Restaurant.ProcessManager
             _publisher.Publish(new PriceOrder(orderCooked.Order, orderCooked.CorrelationId, orderCooked.Id));
         }
 
-        public void Handle(OrderPriced orderPlaced)
+        public void Handle(OrderPriced orderPriced)
         {
             Console.WriteLine("OrderPriced");
-            _publisher.Publish(new TakePayment(orderPlaced.Order, orderPlaced.CorrelationId, orderPlaced.Id));
+            _publisher.Publish(new TakePayment(orderPriced.Order, orderPriced.CorrelationId, orderPriced.Id));
+        }
+
+        public void Handle(OrderPaid orderPaid)
+        {
+            Console.WriteLine("OrderPaid");
+            OnCompleted(orderPaid.CorrelationId);
         }
     }
 }

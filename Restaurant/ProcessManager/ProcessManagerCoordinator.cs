@@ -9,7 +9,7 @@ namespace Restaurant.ProcessManager
     {
         private readonly ISubscriber _subscriber;
         private readonly IPublisher _publisher;
-        private IDictionary<Guid, ProcessManager> _processManagers;
+        private readonly IDictionary<Guid, ProcessManager> _processManagers;
 
         public ProcessManagerCoordinator(ISubscriber subscriber, IPublisher publisher)
         {
@@ -20,11 +20,17 @@ namespace Restaurant.ProcessManager
 
         public void Handle(OrderPlaced orderPlaced)
         {
-            var processManager = new ProcessManager(_publisher);
+            var processManager = new ProcessManager(_publisher) {OnCompleted = OnCompleted};
+            _processManagers.Add(orderPlaced.CorrelationId, processManager);
 
             _subscriber.Subscribe(orderPlaced.CorrelationId, processManager);
 
             processManager.Handle(orderPlaced);
+        }
+
+        private void OnCompleted(Guid correlationId)
+        {
+            _processManagers.Remove(correlationId);
         }
     }
 }
