@@ -8,12 +8,12 @@ namespace Restaurant.Bus
 {
     public class TopicBasedPubSub : IPublisher, ISubscriber
     {
-        private readonly IDictionary<string, IList<IHandle>> _topics;
+        private readonly IDictionary<string, IList<dynamic>> _topics;
         private readonly object _topicsLock = new object();
 
         public TopicBasedPubSub()
         {
-            _topics = new Dictionary<string, IList<IHandle>>();
+            _topics = new Dictionary<string, IList<dynamic>>();
         }
 
         public void Publish<TMessage>(TMessage message)
@@ -26,8 +26,9 @@ namespace Restaurant.Bus
         private void Publish<TMessage>(string topic, TMessage message)
             where TMessage : IMessage
         {
-            IList<IHandle> handlers;
+            IList<dynamic> handlers;
 
+            // ReSharper disable once InconsistentlySynchronizedField
             if (!_topics.TryGetValue(topic, out handlers)) return;
 
             foreach (var typedHandler in handlers.Select(handler => handler as IHandle<TMessage>))
@@ -42,11 +43,11 @@ namespace Restaurant.Bus
             Subscribe(typeof (TMessage).Name, handler);
         }
 
-        private void Subscribe(string topic, IHandle handler)
+        private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
             lock (_topicsLock)
             {
-                IList<IHandle> list = _topics.TryGetValue(topic, out list) ? new List<IHandle>(list) : new List<IHandle>();
+                IList<dynamic> list = _topics.TryGetValue(topic, out list) ? new List<dynamic>(list) : new List<dynamic>();
 
                 list.Add(handler);
 
@@ -54,7 +55,7 @@ namespace Restaurant.Bus
             }
         }
 
-        public void Subscribe(Guid correlationId, IHandle handler)
+        public void Subscribe<TMessage>(Guid correlationId, IHandle<TMessage> handler) where TMessage : IMessage
         {
             Subscribe(correlationId.ToString(), handler);
         }
@@ -64,17 +65,17 @@ namespace Restaurant.Bus
             Unsubscribe(typeof(TMessage).Name, handler);
         }
 
-        public void Unsubscribe(Guid correlationId, IHandle handler)
+        public void Unsubscribe<TMessage>(Guid correlationId, IHandle<TMessage> handler) where TMessage : IMessage
         {
             Unsubscribe(correlationId.ToString(), handler);
         }
 
-        private void Unsubscribe(string topic, IHandle handler)
+        private void Unsubscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
             lock (_topicsLock)
             {
-                var oldList = _topics[topic] ?? new List<IHandle>();
-                var list = new List<IHandle>(oldList);
+                var oldList = _topics[topic] ?? new List<dynamic>();
+                var list = new List<dynamic>(oldList);
 
                 list.Remove(handler);
 
