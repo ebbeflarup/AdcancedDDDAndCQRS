@@ -70,7 +70,7 @@
     <Compile Include="Messages\MessageBase.cs" />
     <Compile Include="Messages\Commands\PriceOrder.cs" />
     <Compile Include="Handlers\Monitor.cs" />
-    <Compile Include="Handlers\Dispatchers\MorefairDispatcher.cs" />
+    <Compile Include="Handlers\Dispatchers\MoreFairDispatcher.cs" />
     <Compile Include="Handlers\Multiplexer.cs" />
     <Compile Include="Model\Order.cs" />
     <Compile Include="Handlers\OrderPrinter.cs" />

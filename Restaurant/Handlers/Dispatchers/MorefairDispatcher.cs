@@ -5,11 +5,11 @@ using Restaurant.Messages;
 
 namespace Restaurant.Handlers.Dispatchers
 {
-    public class MorefairDispatcher<TMessage> : IHandle<TMessage> where TMessage : IMessage
+    public class MoreFairDispatcher<TMessage> : IHandle<TMessage> where TMessage : IMessage
     {
         private readonly IEnumerable<ThreadedHandler<TMessage>> _handlers;
 
-        public MorefairDispatcher(IEnumerable<ThreadedHandler<TMessage>> handlers)
+        public MoreFairDispatcher(IEnumerable<ThreadedHandler<TMessage>> handlers)
         {
             _handlers = handlers;
         }

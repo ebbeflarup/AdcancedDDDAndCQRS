@@ -14,24 +14,24 @@ namespace Restaurant
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             var bus = new TopicBasedPubSub();
             var r = new Random();
             var timedHandlerTh = new TimedHandler(bus);
-            var thCashier = new ThreadedHandler<TakePayment>(new Cashier(bus), "CashierThread");
-            var thAssMan = new ThreadedHandler<PriceOrder>(new AssistantManager(bus), "AssManThread");
-            var th1 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Long"), "Long Thread");
-            var th2 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "John"), "John Thread");
-            var th3 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Silver"), "Silver Thread");
+            var thCashier = new ThreadedHandler<TakePayment>(new Cashier(bus), "Cashier");
+            var thAssMan = new ThreadedHandler<PriceOrder>(new AssistantManager(bus), "AssMan");
+            var th1 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Cook1"), "Cook1");
+            var th2 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Cook2"), "Cook2");
+            var th3 = new ThreadedHandler<CookFood>(new Cook(bus, r.Next(500, 3000), "Cook3"), "Cook3");
             var mfth =
                 new ThreadedHandler<CookFood>(
-                    new MorefairDispatcher<CookFood>(new List<ThreadedHandler<CookFood>>()
+                    new MoreFairDispatcher<CookFood>(new List<ThreadedHandler<CookFood>>
                     {
                         th1,
                         th2,
                         th3
-                    }), "MoreFairThreadedHandler");
+                    }), "MoreFair");
             var processManagerCoorTh = new ThreadedHandler<OrderPlaced>(new OrderProcessManagerCoordinator(bus, bus), "ProcessManagerCoordinator");
             IEnumerable<IStartable> startables = new List<IStartable> {th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh, timedHandlerTh };
             IEnumerable<IMonitorable> monitorables = new List<IMonitorable> { th1, th2, th3, thAssMan, thCashier, mfth, processManagerCoorTh };
@@ -54,7 +54,7 @@ namespace Restaurant
                 startable.Start();
             }
 
-            for (int i = 0; i < 20; i++)
+            for (var i = 0; i < 20; i++)
             {
                 var lineItems = new LineItemList
                 {
@@ -70,17 +70,15 @@ namespace Restaurant
                 {
                     foreach (var monitorable in monitorables)
                     {
-                        Console.WriteLine($"Handler name {monitorable.Name} has {monitorable.Count} orders");
+                        Console.WriteLine($"{monitorable.Name} has {monitorable.Count} orders");
                     }
 
                     Thread.Sleep(1000);
                 }
 
             });
-
             timerThread.Start();
 
-            Console.WriteLine("Done");
             Console.ReadLine();
         }
     }
