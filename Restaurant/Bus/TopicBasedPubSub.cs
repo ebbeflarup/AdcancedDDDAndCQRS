@@ -8,12 +8,12 @@ namespace Restaurant.Bus
 {
     public class TopicBasedPubSub : IPublisher, ISubscriber
     {
-        private readonly IDictionary<string, IList<dynamic>> _topics;
-        private readonly object _topicsLock = new object();
+        private readonly IDictionary<string, IList<dynamic>> _subscriptions;
+        private readonly object _subscriptionsLock = new object();
 
         public TopicBasedPubSub()
         {
-            _topics = new Dictionary<string, IList<dynamic>>();
+            _subscriptions = new Dictionary<string, IList<dynamic>>();
         }
 
         public void Publish<TMessage>(TMessage message)
@@ -26,14 +26,14 @@ namespace Restaurant.Bus
         private void Publish<TMessage>(string topic, TMessage message)
             where TMessage : IMessage
         {
-            IList<dynamic> handlers;
+            IList<dynamic> handlersSubscribedToTopic;
 
             // ReSharper disable once InconsistentlySynchronizedField
-            if (!_topics.TryGetValue(topic, out handlers)) return;
+            if (!_subscriptions.TryGetValue(topic, out handlersSubscribedToTopic)) return;
 
-            foreach (var typedHandler in handlers.Select(handler => handler as IHandle<TMessage>))
+            foreach (var handlerOfMessageSubscribedToTopic in handlersSubscribedToTopic.Where(handler => handler is IHandle<TMessage>))
             {
-                typedHandler?.Handle(message);
+                handlerOfMessageSubscribedToTopic.Handle(message);
             }
         }
 
@@ -45,13 +45,15 @@ namespace Restaurant.Bus
 
         private void Subscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
-            lock (_topicsLock)
+            lock (_subscriptionsLock)
             {
-                IList<dynamic> list = _topics.TryGetValue(topic, out list) ? new List<dynamic>(list) : new List<dynamic>();
+                IList<dynamic> handlersSubscribedToTopic = _subscriptions.TryGetValue(topic, out handlersSubscribedToTopic)
+                    ? new List<dynamic>(handlersSubscribedToTopic)
+                    : new List<dynamic>();
 
-                list.Add(handler);
+                handlersSubscribedToTopic.Add(handler);
 
-                _topics[topic] = list;
+                _subscriptions[topic] = handlersSubscribedToTopic;
             }
         }
 
@@ -72,14 +74,15 @@ namespace Restaurant.Bus
 
         private void Unsubscribe<TMessage>(string topic, IHandle<TMessage> handler) where TMessage : IMessage
         {
-            lock (_topicsLock)
+            lock (_subscriptionsLock)
             {
-                var oldList = _topics[topic] ?? new List<dynamic>();
-                var list = new List<dynamic>(oldList);
+                IList<dynamic> handlersSubscribedToTopic = _subscriptions.TryGetValue(topic, out handlersSubscribedToTopic)
+                    ? new List<dynamic>(handlersSubscribedToTopic)
+                    : new List<dynamic>();
 
-                list.Remove(handler);
+                handlersSubscribedToTopic.Remove(handler);
 
-                _topics[topic] = list;
+                _subscriptions[topic] = handlersSubscribedToTopic;
             }
         }
     }
