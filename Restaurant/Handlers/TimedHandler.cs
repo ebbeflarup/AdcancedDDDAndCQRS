@@ -47,7 +47,7 @@ namespace Restaurant.Handlers
                         }
                     }
 
-                    foreach (var sendToMeAt in sendNow)
+                    foreach (dynamic sendToMeAt in sendNow)
                     {
                         _publisher.Publish(sendToMeAt.Message);
                     }
